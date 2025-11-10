@@ -1,5 +1,5 @@
 public class CodeTheState {
 
     int x = 5;
-    int y = 9;
+    int y = 3;
 }
