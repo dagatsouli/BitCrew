@@ -17,6 +17,7 @@ public class CodeTheState {
 }
 =======
     int a = 3;
+    int p = 4;
 
 }
 >>>>>>> 90c3ab1c97e7b92bee36cc3bc64bc2f89b409512
