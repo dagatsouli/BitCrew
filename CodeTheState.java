@@ -12,4 +12,5 @@ public class CodeTheState {
 =======
     int w = 2;
 >>>>>>> 4cbc6864b36813f06c0ce3223b04186cbcaf1492
+    int d = 88;
 }
