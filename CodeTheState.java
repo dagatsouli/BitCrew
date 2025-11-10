@@ -6,4 +6,5 @@ public class CodeTheState {
     int k = 4;
     int z = 5;
     int w = 2;
+    int x = 0;
 }
