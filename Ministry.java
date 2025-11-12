@@ -1,4 +1,4 @@
-public class CodeTheState {
+public class Ministry {
 
     int x = 5;
     int y = 3;
