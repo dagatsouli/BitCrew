@@ -1,12 +1,14 @@
 public class MinistryOfNationalDefense {
     public static void main(String[] args) {
-         double taktikos = 6061000000.0;       
-        double dimosiesEpendyseis = 69000000.0;
-        double synolo = 6130000000.0;
-        System.out.println("Ministry of National Defence");
+        int year = 2025;
+        String ministry = "Ministry of National Defense";
+        double regularBudget = 6061000000.0;       
+        double investmentBudget = 69000000.0;
+        double total = regularBudget + investmentBudget;
+        System.out.println(ministry + "Budget" + year);
         System.out.println("--------------------------------------------------");
-        System.out.println("Regular Budget: " + taktikos + " €");
-        System.out.println("Public Investment Budget: " + dimosiesEpendyseis + " €");
-        System.out.println("Total Budget: " + synolo + " €");
+        System.out.println("Regular Budget: " + regularBudget + " €");
+        System.out.println("Public Investment Budget: " + investmentBudget + " €");
+        System.out.println("Total Budget: " + total + " €");
     }
 }
