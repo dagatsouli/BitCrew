@@ -76,10 +76,10 @@ public class MinistryOfNationalDefense {
 
             // === CO-FINANCED PART ===
             System.out.println("\n===== Co-Financed Part of Public Investment Budget =====");
-            System.out.println("Army General Staff: " + String.format("%,d €", coArmyGeneralStaffArmyGeneralStaff));
-            System.out.println("Naval General Staff: " + String.format("%,d €", coNavalGeneralStaffNavalGeneralStaff));
+            System.out.println("Army General Staff: " + String.format("%,d €", coArmyGeneralStaff));
+            System.out.println("Naval General Staff: " + String.format("%,d €", coNavalGeneralStaff));
             System.out.println("Air Force General Staff: " + String.format("%,d €", coAirForceGeneralStaff));
-            System.out.println("National Defense Units: " + String.format("%,d €", coDefenceUnitsDefenceUnits));
+            System.out.println("National Defense Units: " + String.format("%,d €", coDefenceUnits));
             
             
 
