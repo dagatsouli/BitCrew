@@ -1,13 +1,103 @@
+
+import java.util.Scanner;
+
 public class EducationBudget {
     public static void main(String[] args) {
 
-        double taktikos = 5594000000.0;        
-        double dimosiesEpendyseis = 1012000000.0;
-        double synolo = 6606000000.0;
-        System.out.println("Ministry of Education, Religious Affairs and Sports");
-        System.out.println("--------------------------------------------------");
-        System.out.println("Regular Budget: " + taktikos + " €");
-        System.out.println("Public Investment Budget: " + dimosiesEpendyseis + " €");
-        System.out.println("Total Budget: " + synolo + " €");
+        Scanner input = new Scanner(System.in);
+
+        String ministry = "Ministry of Education, Religions and Sports";
+        int year = 2025;
+
+        // === MAIN BUDGETS ===
+        long regularBudget = 5594000000L;
+        long investmentBudget = 1012000000L;
+        long total = regularBudget + investmentBudget;
+
+        // === REGULAR BUDGET CATEGORIES ===
+        long employeeBenefits = 4935588000L;
+        long socialBenefits = 440000L;
+        long transfers = 530338000L;
+        long goodsAndServices = 124934000L;
+        long subsidies = 30000L;
+        long creditsUnderAllocation = 665000L;
+        long fixedAssets = 2000000L;
+        long valuables = 5000L;
+
+        // === INVESTMENT BUDGET — NATIONAL PART ===
+        long natReligions = 500000L;
+        long natPrimarySecondaryAndSpecialEducation = 10000000L;
+        long natVocationalEducationTrainingAndLifelongLearning = 1000000L;
+        long natHigherEducation = 116700000L;
+        long natSports = 11000000L;
+        long natOtherUnits = 5800000L;
+        long natRecoveryFund = 202000000L;
+
+        // === INVESTMENT BUDGET — CO-FINANCED PART ===
+        long coReligions = 1800000L;
+        long coPrimarySecondaryAndSpecialEducation = 508000000L;
+        long coVocationalEducationTrainingAndLifelongLearning = 73000000L;
+        long coHigherEducation = 77000000L;
+        long coOtherUnits = 3000000L;
+        long coHigherEdAuthorityExpenses = 2200000L;
+
+        System.out.println("=====================================");
+        System.out.println(ministry + " - Budget " + year);
+        System.out.println("=====================================\n");
+
+        // Show only 3 main categories first
+        System.out.println("Regular Budget: " + String.format("%,d €", regularBudget));
+        System.out.println("Public Investment Budget: " + String.format("%,d €", investmentBudget));
+        System.out.println("Total: " + String.format("%,d €", total));
+
+        // === ASK FOR DETAILED REGULAR BUDGET ===
+        System.out.print("\nDo you want to see the detailed Regular Budget categories? (yes/no): ");
+        String answer = input.nextLine().trim().toLowerCase();
+
+        if (answer.equals("yes")) {
+            System.out.println("\n----- Detailed Regular Budget Categories -----");
+            System.out.println("Employee benefits: " + String.format("%,d €", employeeBenefits));
+            System.out.println("Social benefits: " + String.format("%,d €", socialBenefits));
+            System.out.println("Transfers: " + String.format("%,d €", transfers));
+            System.out.println("Purchases of goods and services: " + String.format("%,d €", goodsAndServices));
+            System.out.println("Subsidies: " + String.format("%,d €", subsidies));
+            System.out.println("Credits under allocation: " + String.format("%,d €", creditsUnderAllocation));
+            System.out.println("Fixed assets: " + String.format("%,d €", fixedAssets));
+            System.out.println("Valuables: " + String.format("%,d €", valuables));
+            System.out.println("--------------------------------------------------");
+        } else {
+            System.out.println("\nOK. No detailed Regular Budget will be displayed.");
+        }
+
+        // === ASK FOR DETAILED INVESTMENT BUDGET ===
+        System.out.print("\nDo you want to see the Investment Budget analysis? (yes/no): ");
+        String answer2 = input.nextLine().trim().toLowerCase();
+
+        if (answer2.equals("yes")) {
+
+            // === NATIONAL PART ===
+            System.out.println("\n===== National Part of Public Investment Budget =====");
+            System.out.println("General Secretariat of Religions: " + String.format("%,d €", natReligions));
+            System.out.println("General Secretariat of Primary, Secondary and Special Education: " + String.format("%,d €", natPrimarySecondaryAndSpecialEducation));
+            System.out.println("General Secretariat of Vocational Education, Training and Lifelong Learning: " + String.format("%,d €", natVocationalEducationTrainingAndLifelongLearning));
+            System.out.println("General Secretariat of Higher Education: " + String.format("%,d €", natHigherEducation));
+            System.out.println("General Secretariat of Sports: " + String.format("%,d €", natSports));
+            System.out.println("Other Units: " + String.format("%,d €", natOtherUnits));
+            System.out.println("Recovery & Resilience Facility Expenses: " + String.format("%,d €", natRecoveryFund));
+
+            // === CO-FINANCED PART ===
+            System.out.println("\n===== Co-Financed Part of Public Investment Budget =====");
+            System.out.println("General Secretariat of Religions: " + String.format("%,d €", coReligions));
+            System.out.println("General Secretariat of Primary, Secondary and Special Education: " + String.format("%,d €", coPrimarySecondaryAndSpecialEducation));
+            System.out.println("General Secretariat of Vocational Education, Training and Lifelong Learning: " + String.format("%,d €", coVocationalEducationTrainingAndLifelongLearning));
+            System.out.println("General Secretariat of Higher Education: " + String.format("%,d €", coHigherEducation));
+            System.out.println("Other Units: " + String.format("%,d €", coOtherUnits));
+            System.out.println("Higher Education Authority Expenses: " + String.format("%,d €", coHigherEdAuthorityExpenses));
+
+        } else {
+            System.out.println("\nOK. No Investment Budget analysis will be displayed.");
+        }
+
+        input.close();
     }
 }
