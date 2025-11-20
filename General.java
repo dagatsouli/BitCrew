@@ -8,9 +8,8 @@ public class General {
 
     System.out.println("The total revenues of Greece, based on the state budget for 2025, amount to 1,304,827,000,000 EUR .");
     System.out.println("The total expenditures of Greece, based on the state budget for 2025, amount to 1,307,907,506,000 EUR.");
-    System.out.print("\nDo you want to see the detailed version of the Revenues? (yes/no): ");
-    String answer = input.nextLine().trim().toLowerCase();
-
+    
+    //REVENUES
     long taxes = 62055000000L;
     long socialContributions = 60000000;
     long transfers = 8131000000L;
@@ -22,7 +21,7 @@ public class General {
     long debtSecurities = 25984000000L;
     long loans = 1202047000000L;
     long financialDerivatives = 800000000;
-
+    //EXPENSES
     long employeeBenefits = 14889199000L;
     long socialBenefits = 425136000L;
     long transfersExpenses = 34741365000L;
@@ -38,7 +37,11 @@ public class General {
     long debtSecuritiesExpenses = 19375000000L;
     long loans2Expenses = 1203165130000L;    
 
-    if (answer.equals("yes")) {
+    System.out.print("\nDo you want to see the detailed version of the Revenues? (yes/no): ");
+    String answer = input.nextLine().trim().toLowerCase();
+
+
+     if (answer.equals("yes")) {
             System.out.println("\n----- Detailed Version of the Revenues -----");
             System.out.println("Taxes: " + taxes + " EUR");
             System.out.println("Social contributions: " + socialContributions + " EUR");
@@ -53,11 +56,12 @@ public class General {
             System.out.println("Financial Derivatives: " + financialDerivatives + " EUR");
             System.out.println("--------------------------------------------------");
         } else {
-            System.out.println("\nOK. No detailed Regular Budget will be displayed.");
+            System.out.println("\n OK. No detailed Regular Budget will be displayed.");
         }
 
 
-    
-    }
+    System.out.print("\nDo you want to see the detailed version of the Expenses? (yes/no): ");
+    String answer2 = input.nextLine().trim().toLowerCase();
 
+    }
 }
