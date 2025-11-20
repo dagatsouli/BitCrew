@@ -1,9 +1,15 @@
+import java.util.Scanner;
+
 public class General {
     
     public static void main(String[] args) {
+    
+    Scanner input = new Scanner(System.in);
 
     System.out.println("The total revenues of Greece, based on the state budget for 2025, amount to 1,304,827,000,000 EUR .");
     System.out.println("The total expenditures of Greece, based on the state budget for 2025, amount to 1,307,907,506,000 EUR.");
+    System.out.print("\nDo you want to see the detailed version of the Revenues? (yes/no): ");
+    String answer = input.nextLine().trim().toLowerCase();
 
     long taxes = 62055000000L;
     long socialContributions = 60000000;
@@ -11,13 +17,12 @@ public class General {
     long salesOfgoods = 2405000000L;
     long otherCurrentRevenues = 2775000000L;
     long fixedAssets = 37000000;
-    long debtSecurities2 = 11000000;
-    long loans = 20000000;
     long equitySecuritiesAndInvestment = 467000000;
-    long LiabilitiesfromCurrency = 66000000;
-    long debtSecurities = 24973000000L;
-    long loans2 = 1202027000000L;
+    long liabilitiesfromCurrency = 66000000;
+    long debtSecurities = 25984000000L;
+    long loans = 1202047000000L;
     long financialDerivatives = 800000000;
+
     long employeeBenefits = 14889199000L;
     long socialBenefits = 425136000L;
     long transfersExpenses = 34741365000L;
@@ -32,6 +37,26 @@ public class General {
     long equitySecuritiesExpenses = 1755112000L;
     long debtSecuritiesExpenses = 19375000000L;
     long loans2Expenses = 1203165130000L;    
+
+    if (answer.equals("yes")) {
+            System.out.println("\n----- Detailed Version of the Revenues -----");
+            System.out.println("Taxes: " + taxes + " EUR");
+            System.out.println("Social contributions: " + socialContributions + " EUR");
+            System.out.println("Transfers: " + transfers + " EUR");
+            System.out.println("Purchases of goods and services: " + salesOfgoods + " EUR");
+            System.out.println("Credits under allocation: " + otherCurrentRevenues + " EUR");
+            System.out.println("Fixed assets: " + fixedAssets + " EUR");
+            System.out.println("Debt Securities: " + debtSecurities + " EUR");
+            System.out.println("Loans " + loans + " EUR");
+            System.out.println("Equity Securities And Investment: " + equitySecuritiesAndInvestment + " EUR");
+            System.out.println("Liabilities from Currency: " + liabilitiesfromCurrency + " EUR");
+            System.out.println("Financial Derivatives: " + financialDerivatives + " EUR");
+            System.out.println("--------------------------------------------------");
+        } else {
+            System.out.println("\nOK. No detailed Regular Budget will be displayed.");
+        }
+
+
     
     }
 
