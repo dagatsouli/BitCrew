@@ -2,7 +2,7 @@ public class General {
     
     public static void main(String[] args) {
 
-    System.out.println("The total revenues of Greece, based on the state budget for 2025, amount to 1,304,827,000,000 EUR . ");
+    System.out.println("The total revenues of Greece, based on the state budget for 2025, amount to 1,304,827,000,000 EUR .");
     System.out.println("The total expenditures of Greece, based on the state budget for 2025, amount to 1,307,907,506,000 EUR.");
 
     long taxes = 62055000000L;
