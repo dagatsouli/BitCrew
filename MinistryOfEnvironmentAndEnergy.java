@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class MinistryOfEnvironmentAndEnergy {
-
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
@@ -44,9 +43,9 @@ public class MinistryOfEnvironmentAndEnergy {
         System.out.println("=====================================\n");
 
         // Show only 3 main categories first
-        System.out.println("Regular Budget: " + String.format("%,d €", regularBudget));
-        System.out.println("Public Investment Budget: " + String.format("%,d €", investmentBudget));
-        System.out.println("Total: " + String.format("%,d €", total));
+        System.out.println("Regular Budget: " + String.format("%,d EUR", regularBudget));
+        System.out.println("Public Investment Budget: " + String.format("%,d EUR", investmentBudget));
+        System.out.println("Total: " + String.format("%,d EUR", total));
 
         // === ASK FOR DETAILED REGULAR BUDGET ===
         System.out.print("\nDo you want to see the detailed Regular Budget categories? (yes/no): ");
@@ -54,12 +53,12 @@ public class MinistryOfEnvironmentAndEnergy {
 
         if (answer.equals("yes")) {
             System.out.println("\n----- Detailed Regular Budget Categories -----");
-            System.out.println("Employee benefits: " + String.format("%,d €", employeeBenefits));
-            System.out.println("Social benefits: " + String.format("%,d €", socialBenefits));
-            System.out.println("Transfers: " + String.format("%,d €", transfers));
-            System.out.println("Purchases of goods and services: " + String.format("%,d €", goodsAndServices));
-            System.out.println("Credits under allocation: " + String.format("%,d €", creditsUnderAllocation));
-            System.out.println("Fixed assets: " + String.format("%,d €", fixedAssets));
+            System.out.println("Employee benefits: " + String.format("%,d EUR", employeeBenefits));
+            System.out.println("Social benefits: " + String.format("%,d EUR", socialBenefits));
+            System.out.println("Transfers: " + String.format("%,d EUR", transfers));
+            System.out.println("Purchases of goods and services: " + String.format("%,d EUR", goodsAndServices));
+            System.out.println("Credits under allocation: " + String.format("%,d EUR", creditsUnderAllocation));
+            System.out.println("Fixed assets: " + String.format("%,d EUR", fixedAssets));
             System.out.println("--------------------------------------------------");
         } else {
             System.out.println("\nOK. No detailed Regular Budget will be displayed.");
@@ -73,22 +72,22 @@ public class MinistryOfEnvironmentAndEnergy {
 
             // === NATIONAL PART ===
             System.out.println("\n===== National Part of Public Investment Budget =====");
-            System.out.println("General Secretariat of Spatial Planning: " + String.format("%,d €", natSpatialPlanning));
-            System.out.println("General Secretariat for Energy & Mineral Resources: " + String.format("%,d €", natEnergyMinerals));
-            System.out.println("General Secretariat of Natural Environment & Water: " + String.format("%,d €", natNaturalEnvironment));
-            System.out.println("General Secretariat for Waste Management: " + String.format("%,d €", natWasteManagement));
-            System.out.println("General Secretariat of Forests: " + String.format("%,d €", natForests));
-            System.out.println("Other Units: " + String.format("%,d €", natOtherUnits));
-            System.out.println("Recovery & Resilience Facility Expenses: " + String.format("%,d €", natRecoveryFund));
+            System.out.println("General Secretariat of Spatial Planning: " + String.format("%,d EUR", natSpatialPlanning));
+            System.out.println("General Secretariat for Energy & Mineral Resources: " + String.format("%,d EUR", natEnergyMinerals));
+            System.out.println("General Secretariat of Natural Environment & Water: " + String.format("%,d EUR", natNaturalEnvironment));
+            System.out.println("General Secretariat for Waste Management: " + String.format("%,d EUR", natWasteManagement));
+            System.out.println("General Secretariat of Forests: " + String.format("%,d EUR", natForests));
+            System.out.println("Other Units: " + String.format("%,d EUR", natOtherUnits));
+            System.out.println("Recovery & Resilience Facility Expenses: " + String.format("%,d EUR", natRecoveryFund));
 
             // === CO-FINANCED PART ===
             System.out.println("\n===== Co-Financed Part of Public Investment Budget =====");
-            System.out.println("General Secretariat of Spatial Planning: " + String.format("%,d €", coSpatialPlanning));
-            System.out.println("General Secretariat for Energy & Mineral Resources: " + String.format("%,d €", coEnergyMinerals));
-            System.out.println("General Secretariat of Natural Environment & Water: " + String.format("%,d €", coNaturalEnvironment));
-            System.out.println("General Secretariat for Waste Management: " + String.format("%,d €", coWasteManagement));
-            System.out.println("General Secretariat of Forests: " + String.format("%,d €", coForests));
-            System.out.println("Other Units: " + String.format("%,d €", coOtherUnits));
+            System.out.println("General Secretariat of Spatial Planning: " + String.format("%,d EUR", coSpatialPlanning));
+            System.out.println("General Secretariat for Energy & Mineral Resources: " + String.format("%,d EUR", coEnergyMinerals));
+            System.out.println("General Secretariat of Natural Environment & Water: " + String.format("%,d EUR", coNaturalEnvironment));
+            System.out.println("General Secretariat for Waste Management: " + String.format("%,d EUR", coWasteManagement));
+            System.out.println("General Secretariat of Forests: " + String.format("%,d EUR", coForests));
+            System.out.println("Other Units: " + String.format("%,d EUR", coOtherUnits));
 
         } else {
             System.out.println("\nOK. No Investment Budget analysis will be displayed.");
