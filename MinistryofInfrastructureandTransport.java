@@ -38,9 +38,9 @@ public class MinistryofInfrastructureandTransport {
         System.out.println("=====================================\n");
 
         // Show only 3 main categories first
-        System.out.println("Regular Budget: " + String.format("%,d €", regularBudget));
-        System.out.println("Public Investment Budget: " + String.format("%,d €", investmentBudget));
-        System.out.println("Total: " + String.format("%,d €", total));
+        System.out.println("Regular Budget: " + String.format("%,d EUR", regularBudget));
+        System.out.println("Public Investment Budget: " + String.format("%,d EUR", investmentBudget));
+        System.out.println("Total: " + String.format("%,d EUR", total));
 
         // === ASK FOR DETAILED REGULAR BUDGET ===
         System.out.print("\nDo you want to see the detailed Regular Budget categories? (yes/no): ");
@@ -48,13 +48,13 @@ public class MinistryofInfrastructureandTransport {
 
         if (answer.equals("yes")) {
             System.out.println("\n----- Detailed Regular Budget Categories -----");
-            System.out.println("Employee Benefits: " + String.format("%,d €", employeeBenefits));
-            System.out.println("Social benefits: " + String.format("%,d €", socialBenefits));
-            System.out.println("Transfers: " + String.format("%,d €", transfers));
-            System.out.println("Purchases of goods and services: " + String.format("%,d €", goodsAndServices));
-            System.out.println("Subsidies: " + String.format("%,d €", subsidies));
-            System.out.println("Other Expenses: " + String.format("%,d €", otherExpenses));
-            System.out.println("Fixed assets: " + String.format("%,d €", fixedAssets));
+            System.out.println("Employee Benefits: " + String.format("%,d EUR", employeeBenefits));
+            System.out.println("Social benefits: " + String.format("%,d EUR", socialBenefits));
+            System.out.println("Transfers: " + String.format("%,d EUR", transfers));
+            System.out.println("Purchases of goods and services: " + String.format("%,d EUR", goodsAndServices));
+            System.out.println("Subsidies: " + String.format("%,d EUR", subsidies));
+            System.out.println("Other Expenses: " + String.format("%,d EUR", otherExpenses));
+            System.out.println("Fixed assets: " + String.format("%,d EUR", fixedAssets));
             System.out.println("--------------------------------------------------");
         } else {
             System.out.println("\nOK. No detailed Regular Budget will be displayed.");
@@ -68,16 +68,16 @@ public class MinistryofInfrastructureandTransport {
 
             // === NATIONAL PART ===
             System.out.println("\n===== National Part of Public Investment Budget =====");
-            System.out.println("General Secretariat of Infrastructure: " + String.format("%,d €", generalSecretariatofInfrastructure));
-            System.out.println("General Secretariat of Transport: " + String.format("%,d €", generalSecretariatofTransport));
-            System.out.println("Other Service Units: " + String.format("%,d €", otherServiceUnits));
-            System.out.println("Recovery And Resilience Fund Expenditures: " + String.format("%,d €", recoveryAndResilienceFundExpenditures));
+            System.out.println("General Secretariat of Infrastructure: " + String.format("%,d EUR", generalSecretariatofInfrastructure));
+            System.out.println("General Secretariat of Transport: " + String.format("%,d EUR", generalSecretariatofTransport));
+            System.out.println("Other Service Units: " + String.format("%,d EUR", otherServiceUnits));
+            System.out.println("Recovery And Resilience Fund Expenditures: " + String.format("%,d EUR", recoveryAndResilienceFundExpenditures));
 
             // === CO-FINANCED PART ===
             System.out.println("\n===== Co-Financed Part of Public Investment Budget =====");
-            System.out.println("General Secretariat of Infrastructure: " + String.format("%,d €", coGeneralSecretariatofInfrastructure));
-            System.out.println("General Secretariat of Transport: " + String.format("%,d €", coGeneralSecretariatofTransport));
-            System.out.println("Other Service Units: " + String.format("%,d €", coOtherServiceUnits));
+            System.out.println("General Secretariat of Infrastructure: " + String.format("%,d EUR", coGeneralSecretariatofInfrastructure));
+            System.out.println("General Secretariat of Transport: " + String.format("%,d EUR", coGeneralSecretariatofTransport));
+            System.out.println("Other Service Units: " + String.format("%,d EUR", coOtherServiceUnits));
 
         } else {
             System.out.println("\nOK. No Investment Budget analysis will be displayed.");
