@@ -39,9 +39,9 @@ public class MinistryOfNationalDefense {
         System.out.println("=====================================\n");
 
         // Show only 3 main categories first
-        System.out.println("Regular Budget: " + String.format("%,d €", regularBudget));
-        System.out.println("Public Investment Budget: " + String.format("%,d €", investmentBudget));
-        System.out.println("Total: " + String.format("%,d €", total));
+        System.out.println("Regular Budget: " + String.format("%,d EUR", regularBudget));
+        System.out.println("Public Investment Budget: " + String.format("%,d EUR", investmentBudget));
+        System.out.println("Total: " + String.format("%,d EUR", total));
 
         // === ASK FOR DETAILED REGULAR BUDGET ===
         System.out.print("\nDo you want to see the detailed Regular Budget categories? (yes/no): ");
@@ -49,12 +49,12 @@ public class MinistryOfNationalDefense {
 
         if (answer.equals("yes")) {
             System.out.println("\n----- Detailed Regular Budget Categories -----");
-            System.out.println("Employee benefits: " + String.format("%,d €", employeeBenefits));
-            System.out.println("Social benefits: " + String.format("%,d €", socialBenefits));
-            System.out.println("Transfers: " + String.format("%,d €", transfers));
-            System.out.println("Other expenses: " + String.format("%,d €", otherExpenses));
-            System.out.println("Credits under allocation: " + String.format("%,d €", creditsUnderAllocation));
-            System.out.println("Fixed assets: " + String.format("%,d €", fixedAssets));
+            System.out.println("Employee benefits: " + String.format("%,d EUR", employeeBenefits));
+            System.out.println("Social benefits: " + String.format("%,d EUR", socialBenefits));
+            System.out.println("Transfers: " + String.format("%,d EUR", transfers));
+            System.out.println("Other expenses: " + String.format("%,d EUR", otherExpenses));
+            System.out.println("Credits under allocation: " + String.format("%,d EUR", creditsUnderAllocation));
+            System.out.println("Fixed assets: " + String.format("%,d EUR", fixedAssets));
             System.out.println("--------------------------------------------------");
         } else {
             System.out.println("\nOK. No detailed Regular Budget will be displayed.");
@@ -68,18 +68,18 @@ public class MinistryOfNationalDefense {
 
             // === NATIONAL PART ===
             System.out.println("\n===== National Part of Public Investment Budget =====");
-            System.out.println("Army General Staff: " + String.format("%,d €", natArmyGeneralStaff));
-            System.out.println("Naval General Staff: " + String.format("%,d €", natNavalGeneralStaff));
-            System.out.println("Air Force General Staff: " + String.format("%,d €", natAirForceGeneralStaff));
-            System.out.println("National Defense Units: " + String.format("%,d €", natDefenceUnits));
+            System.out.println("Army General Staff: " + String.format("%,d EUR", natArmyGeneralStaff));
+            System.out.println("Naval General Staff: " + String.format("%,d EUR", natNavalGeneralStaff));
+            System.out.println("Air Force General Staff: " + String.format("%,d EUR", natAirForceGeneralStaff));
+            System.out.println("National Defense Units: " + String.format("%,d EUR", natDefenceUnits));
             
 
             // === CO-FINANCED PART ===
             System.out.println("\n===== Co-Financed Part of Public Investment Budget =====");
-            System.out.println("Army General Staff: " + String.format("%,d €", coArmyGeneralStaff));
-            System.out.println("Naval General Staff: " + String.format("%,d €", coNavalGeneralStaff));
-            System.out.println("Air Force General Staff: " + String.format("%,d €", coAirForceGeneralStaff));
-            System.out.println("National Defense Units: " + String.format("%,d €", coDefenceUnits));
+            System.out.println("Army General Staff: " + String.format("%,d EUR", coArmyGeneralStaff));
+            System.out.println("Naval General Staff: " + String.format("%,d EUR", coNavalGeneralStaff));
+            System.out.println("Air Force General Staff: " + String.format("%,d EUR", coAirForceGeneralStaff));
+            System.out.println("National Defense Units: " + String.format("%,d EUR", coDefenceUnits));
             
             
 
