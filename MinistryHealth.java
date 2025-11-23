@@ -1,64 +1,117 @@
 import java.util.Scanner;
+
 public class MinistryHealth {
     public static void main(String[] args) {
-       Scanner sc = new Scanner(System.in); 
-long paroxes = 2_342_138_000L;
-long metavivaseis = 4_158_244_000L;
-long agores = 104_679_000L;
-long pistoseis = 1_638_000L;
-long pagia = 1_725_000L;
 
-long totalRegular = paroxes + metavivaseis + agores + pistoseis + pagia;
-long pdeEthniko = 519_000_000L;
-long pdeSyn = 50_000_000;
-long totalPDE = pdeEthniko + pdeSyn;
-long totalAll = totalRegular + totalPDE;
+        Scanner sc = new Scanner(System.in);
 
-System.out.println ("ΥΠΟΥΡΓΕΙΟ ΥΓΕΙΑΣ - ΠΡΟΥΠΟΛΟΓΙΣΜΟΣ 2025");
-System.out.println ("\nΤΑΚΤΙΚΟΣ ΠΡΟΠΟΛΟΓΙΣΜΟΣ");
-System.out.println("Μεταβιβάσεις: " + metavivaseis + "€");
-System.out.println("Αγορές αγαθών και υπηρεσιών:   " + agores + "€");
-System.out.println("ΠΔΕ - Εθνικό σκέλος:              " + pdeEthniko + " €");
-System.out.println("ΠΔΕ - Συγχρηματοδούμενο σκέλος:   " + pdeSyn + "€");
-System.out.println("Σύνολο ΠΔΕ:  " + totalAll + "€");
+        // Initial values (in EUR)
+        long employeeBenefits = 2342138000L;
+        long transfers = 4158244000L;
+        long goodsAndServices = 104679000L;
+        long credits = 1638000L;
+        long fixedAssets = 1725000L;
 
-System.out.println("\nΕισάγετε νέες τιμές σε ευρώ για τις βασικές κατηγορίες.");
-System.out.print("Νέα τιμή για Παροχές:  ");
-long newParoxes = sc.nextLong();
-System.out.print("Νέα τιμή για Μεταβιβάσεις:  ");
-long newMetavivaseis = sc.nextLong();
-System.out.print("Νέα τιμή για Αγορές:  ");
-long newAgores = sc.nextLong();
-System.out.print("Νέα τιμή για Πιστώσεις υπό κατανομή:  ");
-long newPistoseis = sc.nextLong();
-System.out.print("Νέα τιμή για πάγια περιουσιακά στοιχεία:  ");
-long newPagia = sc.nextLong();
-System.out.print("Νέα τιμή για ΠΔΕ - Εθνικό Σκέλος:  ");
-long newpdeEthniko = sc.nextLong() ;
-System.out.print("Νέα τιμή για ΠΔΕ - Συγχρηματοδούμενο Σκέλος:  ");
-long newpdeSyn =sc.nextLong();
+        long totalRegular = employeeBenefits + transfers + goodsAndServices + credits + fixedAssets;
 
-long newTotalRegular = newParoxes+ newMetavivaseis + newAgores + newPistoseis + newPagia ;
-long newTotalPDE = newpdeEthniko + newpdeSyn;
-long newTotalAll = newTotalRegular + newTotalPDE;
-System.out.println("\nΑΛΛΑΓΕΣ ΠΟΥ ΕΙΣΗΧΘΗΣΑΝ");
-System.out.println("Παροχές:    "+ paroxes + "  € → "+ newParoxes +" €");
-System.out.println("Μεταβιβάσεις:  " + metavivaseis + " € → "+ newMetavivaseis + " €");
-System.out.println("Αγορές:  " + agores + " € → " + newAgores + " €");
-System.out.println( "Πιστώσεις:  " + pistoseis + " € → " + newPistoseis +" €");
-System.out.println("Πάγια:   " + pagia +" € → " + newPagia +" €");
-System.out.println("ΠΔΕ - Εθνικό:  " + pdeEthniko + " € → " + newpdeEthniko + " €");
-System.out.println("ΠΔΕ - Συγχρηματοδούμενο:  " + pdeSyn +" € → " + newpdeSyn +" €" );
-System.out.println("\nΝΕΟ ΣΥΝΟΛΟ ΤΑΚΤΙΚΟΥ: "  + newTotalRegular+ " €");
-System.out.println("ΝΕΟ ΣΥΝΟΛΟ ΠΔΕ:  " +newTotalPDE+ " €" );
-System.out.println("ΝΕΟ ΣΥΝΟΛΟ ΟΛΟΥ ΠΡΟΥΠΟΛΟΓΙΣΜΟΥ:  " + newTotalAll +" €");
+        long pdeNational = 519000000L;
+        long pdeCoFunded = 50000000L;
 
-long limit = 7_500_000_000L;
-System.out.println("\nΈλεγχος ορίου (" + limit + " €):");
+        long totalPDE = pdeNational + pdeCoFunded;
+        long totalAll = totalRegular + totalPDE;
+
+        System.out.println("MINISTRY OF HEALTH - BUDGET 2025");
+
+        System.out.println("\nREGULAR BUDGET");
+        System.out.println("Transfers: " + String.format("%,d EUR", transfers));
+        System.out.println("Goods and Services: " + String.format("%,d EUR", goodsAndServices));
+        System.out.println("PDE - National Part: " + String.format("%,d EUR", pdeNational));
+        System.out.println("PDE - Co-Funded Part: " + String.format("%,d EUR", pdeCoFunded));
+        System.out.println("Total PDE: " + String.format("%,d EUR", totalPDE));
+
+        // USER INPUT FOR NEW VALUES
+        System.out.println("\nEnter new values (EUR) for each category.");
+        System.out.print("New Employee Benefits: ");
+        long newEmployeeBenefits = sc.nextLong();
+
+        System.out.print("New Transfers: ");
+        long newTransfers = sc.nextLong();
+
+        System.out.print("New Goods and Services: ");
+        long newGoodsAndServices = sc.nextLong();
+
+        System.out.print("New Credits Under Allocation: ");
+        long newCredits = sc.nextLong();
+
+        System.out.print("New Fixed Assets: ");
+        long newFixedAssets = sc.nextLong();
+
+        System.out.print("New PDE - National Part: ");
+        long newPdeNational = sc.nextLong();
+
+        System.out.print("New PDE - Co-Funded Part: ");
+        long newPdeCoFunded = sc.nextLong();
+
+        // NEW TOTALS
+        long newTotalRegular = newEmployeeBenefits + newTransfers + newGoodsAndServices + newCredits + newFixedAssets;
+        long newTotalPDE = newPdeNational + newPdeCoFunded;
+        long newTotalAll = newTotalRegular + newTotalPDE;
+
+        // DISPLAY CHANGES
+        System.out.println("\nCHANGES APPLIED");
+
+        System.out.println("Employee Benefits:    " 
+                + String.format("%,d EUR", employeeBenefits) 
+                + " → " 
+                + String.format("%,d EUR", newEmployeeBenefits));
+
+        System.out.println("Transfers:            " 
+                + String.format("%,d EUR", transfers) 
+                + " → " 
+                + String.format("%,d EUR", newTransfers));
+
+        System.out.println("Goods and Services:   " 
+                + String.format("%,d EUR", goodsAndServices) 
+                + " → " 
+                + String.format("%,d EUR", newGoodsAndServices));
+
+        System.out.println("Credits:              " 
+                + String.format("%,d EUR", credits) 
+                + " → " 
+                + String.format("%,d EUR", newCredits));
+
+        System.out.println("Fixed Assets:         " 
+                + String.format("%,d EUR", fixedAssets) 
+                + " → " 
+                + String.format("%,d EUR", newFixedAssets));
+
+        System.out.println("PDE - National:       " 
+                + String.format("%,d EUR", pdeNational) 
+                + " → " 
+                + String.format("%,d EUR", newPdeNational));
+
+        System.out.println("PDE - Co-Funded:      " 
+                + String.format("%,d EUR", pdeCoFunded) 
+                + " → " 
+                + String.format("%,d EUR", newPdeCoFunded));
+
+        System.out.println("\nNEW TOTAL REGULAR:    " 
+                + String.format("%,d EUR", newTotalRegular));
+
+        System.out.println("NEW TOTAL PDE:        " 
+                + String.format("%,d EUR", newTotalPDE));
+
+        System.out.println("NEW TOTAL BUDGET:     " 
+                + String.format("%,d EUR", newTotalAll));
+
+        long limit = 7_500_000_000L;
+
+        System.out.println("\nBudget Limit: " + String.format("%,d EUR", limit));
+
         if (newTotalAll > limit) {
-            System.out.println(" Υπέρβαση προϋπολογισμού!");
+            System.out.println("Budget Exceeded!");
         } else {
-            System.out.println(" Ο προϋπολογισμός βρίσκεται εντός ορίου.");
-          }
+            System.out.println("Budget is within limit.");
+        }
     }
- }
+}
