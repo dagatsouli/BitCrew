@@ -49,7 +49,7 @@ public class CodeTheState {
             System.out.println("6. Ministry of Education, Religions and Sports");
             System.out.println("==================================");
 
-            System.out.print("\nChoose a Ministry (1–6): ");
+            System.out.print("\nChoose a Ministry (1 - 6): ");
             int ministryChoice = input.nextInt();
             input.nextLine();
 
