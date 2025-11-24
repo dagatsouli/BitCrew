@@ -1,4 +1,6 @@
 public class CodeTheState {
+    
+
     public static void main(String[] args) {
         String message = "The Prime Minister's decision is today! The whole country is waiting for you to start";
         System.out.println(message);
