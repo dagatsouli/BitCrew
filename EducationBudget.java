@@ -46,9 +46,9 @@ public class EducationBudget {
         System.out.println("=====================================\n");
 
         // Show only 3 main categories first
-        System.out.println("Regular Budget: " + String.format("%,d €", regularBudget));
-        System.out.println("Public Investment Budget: " + String.format("%,d €", investmentBudget));
-        System.out.println("Total: " + String.format("%,d €", total));
+        System.out.println("Regular Budget: " + String.format("%,d EUR", regularBudget));
+        System.out.println("Public Investment Budget: " + String.format("%,d EUR", investmentBudget));
+        System.out.println("Total: " + String.format("%,d EUR", total));
 
         // === ASK FOR DETAILED REGULAR BUDGET ===
         System.out.print("\nDo you want to see the detailed Regular Budget categories? (yes/no): ");
@@ -56,14 +56,14 @@ public class EducationBudget {
 
         if (answer.equals("yes")) {
             System.out.println("\n----- Detailed Regular Budget Categories -----");
-            System.out.println("Employee benefits: " + String.format("%,d €", employeeBenefits));
-            System.out.println("Social benefits: " + String.format("%,d €", socialBenefits));
-            System.out.println("Transfers: " + String.format("%,d €", transfers));
-            System.out.println("Purchases of goods and services: " + String.format("%,d €", goodsAndServices));
-            System.out.println("Subsidies: " + String.format("%,d €", subsidies));
-            System.out.println("Credits under allocation: " + String.format("%,d €", creditsUnderAllocation));
-            System.out.println("Fixed assets: " + String.format("%,d €", fixedAssets));
-            System.out.println("Valuables: " + String.format("%,d €", valuables));
+            System.out.println("Employee benefits: " + String.format("%,d EUR", employeeBenefits));
+            System.out.println("Social benefits: " + String.format("%,d EUR", socialBenefits));
+            System.out.println("Transfers: " + String.format("%,d EUR", transfers));
+            System.out.println("Purchases of goods and services: " + String.format("%,d EUR", goodsAndServices));
+            System.out.println("Subsidies: " + String.format("%,d EUR", subsidies));
+            System.out.println("Credits under allocation: " + String.format("%,d EUR", creditsUnderAllocation));
+            System.out.println("Fixed assets: " + String.format("%,d EUR", fixedAssets));
+            System.out.println("Valuables: " + String.format("%,d EUR", valuables));
             System.out.println("--------------------------------------------------");
         } else {
             System.out.println("\nOK. No detailed Regular Budget will be displayed.");
@@ -77,22 +77,22 @@ public class EducationBudget {
 
             // === NATIONAL PART ===
             System.out.println("\n===== National Part of Public Investment Budget =====");
-            System.out.println("General Secretariat of Religions: " + String.format("%,d €", natReligions));
-            System.out.println("General Secretariat of Primary, Secondary and Special Education: " + String.format("%,d €", natPrimarySecondaryAndSpecialEducation));
-            System.out.println("General Secretariat of Vocational Education, Training and Lifelong Learning: " + String.format("%,d €", natVocationalEducationTrainingAndLifelongLearning));
-            System.out.println("General Secretariat of Higher Education: " + String.format("%,d €", natHigherEducation));
-            System.out.println("General Secretariat of Sports: " + String.format("%,d €", natSports));
-            System.out.println("Other Units: " + String.format("%,d €", natOtherUnits));
-            System.out.println("Recovery & Resilience Facility Expenses: " + String.format("%,d €", natRecoveryFund));
+            System.out.println("General Secretariat of Religions: " + String.format("%,d EUR", natReligions));
+            System.out.println("General Secretariat of Primary, Secondary and Special Education: " + String.format("%,d EUR", natPrimarySecondaryAndSpecialEducation));
+            System.out.println("General Secretariat of Vocational Education, Training and Lifelong Learning: " + String.format("%,d EUR", natVocationalEducationTrainingAndLifelongLearning));
+            System.out.println("General Secretariat of Higher Education: " + String.format("%,d EUR", natHigherEducation));
+            System.out.println("General Secretariat of Sports: " + String.format("%,d EUR", natSports));
+            System.out.println("Other Units: " + String.format("%,d EUR", natOtherUnits));
+            System.out.println("Recovery & Resilience Facility Expenses: " + String.format("%,d EUR", natRecoveryFund));
 
             // === CO-FINANCED PART ===
             System.out.println("\n===== Co-Financed Part of Public Investment Budget =====");
-            System.out.println("General Secretariat of Religions: " + String.format("%,d €", coReligions));
-            System.out.println("General Secretariat of Primary, Secondary and Special Education: " + String.format("%,d €", coPrimarySecondaryAndSpecialEducation));
-            System.out.println("General Secretariat of Vocational Education, Training and Lifelong Learning: " + String.format("%,d €", coVocationalEducationTrainingAndLifelongLearning));
-            System.out.println("General Secretariat of Higher Education: " + String.format("%,d €", coHigherEducation));
-            System.out.println("Other Units: " + String.format("%,d €", coOtherUnits));
-            System.out.println("Higher Education Authority Expenses: " + String.format("%,d €", coHigherEdAuthorityExpenses));
+            System.out.println("General Secretariat of Religions: " + String.format("%,d EUR", coReligions));
+            System.out.println("General Secretariat of Primary, Secondary and Special Education: " + String.format("%,d EUR", coPrimarySecondaryAndSpecialEducation));
+            System.out.println("General Secretariat of Vocational Education, Training and Lifelong Learning: " + String.format("%,d EUR", coVocationalEducationTrainingAndLifelongLearning));
+            System.out.println("General Secretariat of Higher Education: " + String.format("%,d EUR", coHigherEducation));
+            System.out.println("Other Units: " + String.format("%,d EUR", coOtherUnits));
+            System.out.println("Higher Education Authority Expenses: " + String.format("%,d EUR", coHigherEdAuthorityExpenses));
 
         } else {
             System.out.println("\nOK. No Investment Budget analysis will be displayed.");
