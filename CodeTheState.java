@@ -1,3 +1,4 @@
+import BitCrew.General;
 import java.util.Scanner;
 
 public class CodeTheState {
@@ -31,9 +32,10 @@ public class CodeTheState {
         // OPTION 1 — Revenues & Expenses
         if (choice == 1) {
             System.out.println("\nOpening Revenues & Expenses menu...");
-            System.out.println("(This section will be completed once you provide the data.)");
+            General.main(null)
             System.out.println("Program terminated.");
             input.close();
+            break;
             return;
         }
 
