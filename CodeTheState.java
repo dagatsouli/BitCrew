@@ -31,10 +31,6 @@ public class CodeTheState {
         // OPTION 1 — Revenues & Expenses
         if (choice == 1) {
             System.out.println("\nOpening Revenues & Expenses menu...");
-            System.out.println("(This section will be completed once you provide the data.)");
-            System.out.println("Program terminated.");
-            input.close();
-            return;
         }
 
         // OPTION 2 — Ministries
@@ -78,5 +74,12 @@ public class CodeTheState {
             input.close();
             return;
         }
+    
+        switch(choice) {
+        case 0:
+            break;
+
+        }
+        input.close();
     }
 }
