@@ -46,10 +46,10 @@ public class CodeTheState {
             System.out.println("3. Ministry of Environment and Energy");
             System.out.println("4. Ministry of Tourism");
             System.out.println("5. Ministry of Health");
-            System.out.println("6. Ministry of Education, Religious Affairs and Culture");
+            System.out.println("6. Ministry of Education, Religions and Sports");
             System.out.println("==================================");
 
-            System.out.print("\nChoose a Ministry (1–6): ");
+            System.out.print("\nChoose a Ministry (1 - 6): ");
             int ministryChoice = input.nextInt();
             input.nextLine();
 
