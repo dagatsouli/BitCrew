@@ -1,4 +1,3 @@
-import BitCrew.General;
 import java.util.Scanner;
 
 public class CodeTheState {
@@ -78,11 +77,8 @@ public class CodeTheState {
     
         switch(choice) {
         case 0:
-            General.main(null);
             break;
 
-        } else {
-        System.out.println(Invalid choice);
         }
         input.close();
     }
