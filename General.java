@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class General {
     
-    public static void main(String[] args) {
+    public static void showReport() {
     
     Scanner input = new Scanner(System.in);
 
