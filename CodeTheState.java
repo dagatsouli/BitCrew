@@ -31,6 +31,7 @@ public class CodeTheState {
         // OPTION 1 — Revenues & Expenses
         if (choice == 1) {
             System.out.println("\nOpening Revenues & Expenses menu...");
+            General.showReport();
         }
 
         // OPTION 2 — Ministries
