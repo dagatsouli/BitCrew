@@ -2,20 +2,16 @@ import java.util.Scanner;
 
 public class MinistryOfEnvironmentAndEnergy extends Ministry {
 
-    // Constructor
     public MinistryOfEnvironmentAndEnergy() {
         super(
             "Ministry of Environment and Energy",
-            319_227_000L,      // regular budget
-            2_022_000_000L     // investment budget
+            319_227_000L,      // Regular Budget
+            2_022_000_000L     // Investment Budget
         );
     }
 
-    // Override abstract method
     @Override
-    public void showBudget() {
-
-        Scanner input = new Scanner(System.in);
+    public void showBudget(Scanner input) {
 
         // === REGULAR BUDGET CATEGORIES ===
         long employeeBenefits = 99_679_000L;
@@ -34,9 +30,6 @@ public class MinistryOfEnvironmentAndEnergy extends Ministry {
         long natOtherUnits = 24_000L;
         long natRecoveryFund = 1_362_000_000L;
 
-        long totalNatInvestment = natSpatialPlanning + natEnergyMinerals + natNaturalEnvironment + natWasteManagement
-                + natForests + natOtherUnits + natRecoveryFund;
-
         // === INVESTMENT BUDGET — CO-FINANCED PART ===
         long coSpatialPlanning = 67_100_000L;
         long coEnergyMinerals = 205_933_000L;
@@ -45,66 +38,88 @@ public class MinistryOfEnvironmentAndEnergy extends Ministry {
         long coForests = 250_000L;
         long coOtherUnits = 8_000_000L;
 
-        long totalCoInvestment = coSpatialPlanning + coEnergyMinerals + coNaturalEnvironment + coWasteManagement
-                + coForests + coOtherUnits;
-
-        // Print main info
+        // === BASIC INFO ===
         printInfo();
 
-        // --- REGULAR BUDGET ---
-        System.out.print("\nDo you want to see the detailed Regular Budget categories? (yes/no): ");
-        String answer = input.nextLine().trim().toLowerCase();
+        // ===== REGULAR BUDGET DETAIL =====
+        String regularAnswer;
 
-        if (answer.equals("yes")) {
+        while (true) {
+            System.out.print("\nDo you want to see the detailed Regular Budget categories? (yes/no): ");
+            regularAnswer = input.nextLine().trim();
+
+            if (regularAnswer.equalsIgnoreCase("yes") || regularAnswer.equalsIgnoreCase("no")) {
+                break;
+            } else {
+                System.out.println(">>> Invalid answer. Please type 'yes' or 'no'.");
+            }
+        }
+
+        if (regularAnswer.equalsIgnoreCase("yes")) {
             System.out.println("\n----- Detailed Regular Budget Categories -----");
-            System.out.println("Employee benefits: " + String.format("%,d EUR", employeeBenefits));
-            System.out.println("Social benefits: " + String.format("%,d EUR", socialBenefits));
-            System.out.println("Transfers: " + String.format("%,d EUR", transfers));
-            System.out.println("Purchases of goods and services: " + String.format("%,d EUR", goodsAndServices));
-            System.out.println("Credits under allocation: " + String.format("%,d EUR", creditsUnderAllocation));
-            System.out.println("Fixed assets: " + String.format("%,d EUR", fixedAssets));
+            System.out.println("Employee Benefits: " +
+                    String.format("%,d EUR", employeeBenefits));
+            System.out.println("Social Benefits: " +
+                    String.format("%,d EUR", socialBenefits));
+            System.out.println("Transfers: " +
+                    String.format("%,d EUR", transfers));
+            System.out.println("Goods & Services: " +
+                    String.format("%,d EUR", goodsAndServices));
+            System.out.println("Credits under Allocation: " +
+                    String.format("%,d EUR", creditsUnderAllocation));
+            System.out.println("Fixed Assets: " +
+                    String.format("%,d EUR", fixedAssets));
             System.out.println("-----------------------------------------------");
         } else {
-            System.out.println("\nOK. No detailed Regular Budget will be displayed.");
+            System.out.println("\nOK. Regular Budget details skipped.");
         }
 
-        // --- INVESTMENT BUDGET ---
-        System.out.print("\nDo you want to see the Investment Budget analysis? (yes/no): ");
-        String answer2 = input.nextLine().trim().toLowerCase();
+        // ===== INVESTMENT BUDGET DETAIL =====
+        String investmentAnswer;
 
-        if (answer2.equals("yes")) {
-            System.out.println("\n===== National Part of Public Investment Budget =====");
-            System.out.println("General Secretariat of Spatial Planning: " + String.format("%,d EUR", natSpatialPlanning));
-            System.out.println("General Secretariat for Energy & Mineral Resources: " + String.format("%,d EUR", natEnergyMinerals));
-            System.out.println("General Secretariat of Natural Environment & Water: " + String.format("%,d EUR", natNaturalEnvironment));
-            System.out.println("General Secretariat for Waste Management: " + String.format("%,d EUR", natWasteManagement));
-            System.out.println("General Secretariat of Forests: " + String.format("%,d EUR", natForests));
-            System.out.println("Other Units: " + String.format("%,d EUR", natOtherUnits));
-            System.out.println("Recovery & Resilience Facility Expenses: " + String.format("%,d EUR", natRecoveryFund));
-            System.out.println("Total National Part: " + String.format("%,d EUR", totalNatInvestment));
+        while (true) {
+            System.out.print("\nDo you want to see the Investment Budget analysis? (yes/no): ");
+            investmentAnswer = input.nextLine().trim();
 
-            System.out.println("\n===== Co-Financed Part of Public Investment Budget =====");
-            System.out.println("General Secretariat of Spatial Planning: " + String.format("%,d EUR", coSpatialPlanning));
-            System.out.println("General Secretariat for Energy & Mineral Resources: " + String.format("%,d EUR", coEnergyMinerals));
-            System.out.println("General Secretariat of Natural Environment & Water: " + String.format("%,d EUR", coNaturalEnvironment));
-            System.out.println("General Secretariat for Waste Management: " + String.format("%,d EUR", coWasteManagement));
-            System.out.println("General Secretariat of Forests: " + String.format("%,d EUR", coForests));
-            System.out.println("Other Units: " + String.format("%,d EUR", coOtherUnits));
-            System.out.println("Total Co-Financed Part: " + String.format("%,d EUR", totalCoInvestment));
+            if (investmentAnswer.equalsIgnoreCase("yes") || investmentAnswer.equalsIgnoreCase("no")) {
+                break;
+            } else {
+                System.out.println(">>> Invalid answer. Please type 'yes' or 'no'.");
+            }
+        }
+
+        if (investmentAnswer.equalsIgnoreCase("yes")) {
+            System.out.println("\n===== Investment Budget — National Part =====");
+            System.out.println("Spatial Planning: " +
+                    String.format("%,d EUR", natSpatialPlanning));
+            System.out.println("Energy & Mineral Resources: " +
+                    String.format("%,d EUR", natEnergyMinerals));
+            System.out.println("Natural Environment & Water: " +
+                    String.format("%,d EUR", natNaturalEnvironment));
+            System.out.println("Waste Management: " +
+                    String.format("%,d EUR", natWasteManagement));
+            System.out.println("Forests: " +
+                    String.format("%,d EUR", natForests));
+            System.out.println("Other Units: " +
+                    String.format("%,d EUR", natOtherUnits));
+            System.out.println("Recovery & Resilience Fund: " +
+                    String.format("%,d EUR", natRecoveryFund));
+
+            System.out.println("\n===== Investment Budget — Co-Financed Part =====");
+            System.out.println("Spatial Planning: " +
+                    String.format("%,d EUR", coSpatialPlanning));
+            System.out.println("Energy & Mineral Resources: " +
+                    String.format("%,d EUR", coEnergyMinerals));
+            System.out.println("Natural Environment & Water: " +
+                    String.format("%,d EUR", coNaturalEnvironment));
+            System.out.println("Waste Management: " +
+                    String.format("%,d EUR", coWasteManagement));
+            System.out.println("Forests: " +
+                    String.format("%,d EUR", coForests));
+            System.out.println("Other Units: " +
+                    String.format("%,d EUR", coOtherUnits));
         } else {
-            System.out.println("\nOK. No Investment Budget analysis will be displayed.");
+            System.out.println("\nOK. Investment Budget analysis skipped.");
         }
-
-        input.close();
-    }
-
-    // Main method
-    public static void main(String[] args) {
-        MinistryOfEnvironmentAndEnergy mod = new MinistryOfEnvironmentAndEnergy();
-        mod.showBudget();
     }
 }
-
-
-
-
