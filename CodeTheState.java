@@ -9,54 +9,53 @@ public class CodeTheState {
         // --- ΑΡΧΙΚΟ ΜΗΝΥΜΑ ---
         System.out.println("The Prime Minister's decision is today! The whole country is waiting for you to start");
         System.out.println("\nPlease press Enter to start");
-
-        try {
-            System.in.read();
-            if (System.in.available() > 0) System.in.read(new byte[System.in.available()]);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        input.nextLine(); // ΜΟΝΟ Scanner – ΟΧΙ System.in.read()
 
         System.out.println("\nStartup confirmed. Initiating procedures...\n");
 
-        // --- ΕΔΩ ΞΕΚΙΝΑΕΙ ΤΟ LOOP ---
         boolean keepRunning = true;
 
+        // --- ΚΥΡΙΑ ΛΟΥΠΑ ΠΡΟΓΡΑΜΜΑΤΟΣ ---
         while (keepRunning) {
 
-            // MAIN MENU
-            System.out.println("=====================================");
-            System.out.println("Press 1 to view Revenues & Expenses");
-            System.out.println("Press 2 to view all Ministries");
-            System.out.println("Press 0 to Exit");
-            System.out.println("=====================================");
-            System.out.print("Your choice: ");
+            int choice = -1;
 
-            // Προστασία από λάθος είσοδο (π.χ. γράμματα)
-            if (!input.hasNextInt()) {
-                System.out.println("Invalid input! Please enter a number.");
-                input.nextLine(); // Καθαρισμός
-                continue;
+            // ===== MENU VALIDATION LOOP =====
+            while (true) {
+                System.out.println("=====================================");
+                System.out.println("Press 1 to view Revenues & Expenses");
+                System.out.println("Press 2 to view all Ministries");
+                System.out.println("Press 0 to Exit");
+                System.out.println("=====================================");
+                System.out.print("Your choice: ");
+
+                if (input.hasNextInt()) {
+                    choice = input.nextInt();
+                    input.nextLine(); // καθαρισμός newline
+
+                    if (choice >= 0 && choice <= 2) {
+                        break;
+                    } else {
+                        System.out.println("\n>>> Error: Please choose 0, 1 or 2.\n");
+                    }
+                } else {
+                    System.out.println("\n>>> Error: Invalid input. Please enter a number.\n");
+                    input.nextLine();
+                }
             }
 
-            int choice = input.nextInt();
-            input.nextLine(); // Καθαρισμός του Enter
-
-            // --- ΕΠΙΛΟΓΗ 0: ΕΞΟΔΟΣ ---
+            // ===== ΕΠΙΛΟΓΕΣ =====
             if (choice == 0) {
                 System.out.println("Exiting system. Goodbye, Prime Minister.");
                 keepRunning = false;
+                break;
             }
 
-            // --- ΕΠΙΛΟΓΗ 1: ΕΣΟΔΑ/ΕΞΟΔΑ ---
             else if (choice == 1) {
                 System.out.println("\nOpening Revenues & Expenses menu...");
-                // Προσοχή: Πρέπει να υπάρχει το αρχείο General.java
-                General a = new General();
-                a.showReport();
+                General.showReport(input);
             }
 
-            // --- ΕΠΙΛΟΓΗ 2: ΥΠΟΥΡΓΕΙΑ ---
             else if (choice == 2) {
 
                 System.out.println("\n========== Ministries ==========");
@@ -68,61 +67,84 @@ public class CodeTheState {
                 System.out.println("6. Ministry of Education, Religions and Sports");
                 System.out.println("==================================");
 
-                System.out.print("\nChoose a Ministry (1 - 6): ");
-               
-                if (input.hasNextInt()) {
-                    int ministryChoice = input.nextInt();
-                    input.nextLine(); // Καθαρισμός
+                int ministryChoice = -1;
 
-                    System.out.print("Do you want to see the detailed budget? (yes/no): ");
-                    String answer = input.nextLine().trim();
+                // --- VALIDATION ΓΙΑ ΥΠΟΥΡΓΕΙΟ ---
+                while (true) {
+                    System.out.print("\nChoose a Ministry (1 - 6): ");
 
-                    if (answer.equalsIgnoreCase("yes")) {
-                        Ministry ministry = null;
+                    if (input.hasNextInt()) {
+                        ministryChoice = input.nextInt();
+                        input.nextLine();
 
-                        // Εδώ πρέπει να υπάρχουν τα αντίστοιχα αρχεία .java για κάθε κλάση
-                        switch (ministryChoice) {
-                            case 1: ministry = new MinistryOfInfrastructureAndTransport(); break;
-                            case 2: ministry = new MinistryOfNationalDefense(); break;
-                            case 3: ministry = new MinistryOfEnvironmentAndEnergy(); break;
-                            case 4: ministry = new MinistryOfTourism(); break;
-                            case 5: ministry = new MinistryOfHealth(); break;
-                            case 6: ministry = new MinistryOfEducationReligionsAndSports(); break;
-                            default: System.out.println("Invalid ministry choice.");
-                        }
-
-                        if (ministry != null) {
-                            ministry.showBudget();
+                        if (ministryChoice >= 1 && ministryChoice <= 6) {
+                            break;
+                        } else {
+                            System.out.println(">>> Error: Choose a number between 1 and 6.");
                         }
                     } else {
-                        System.out.println("Detailed budget view cancelled.");
+                        System.out.println(">>> Error: Invalid input.");
+                        input.nextLine();
                     }
+                }
+
+                // --- YES / NO ΓΙΑ DETAIL VIEW ---
+                String answer = "";
+
+                while (true) {
+                    System.out.print("Do you want to see the detailed budget? (yes/no): ");
+                    answer = input.nextLine().trim();
+
+                    if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("no")) {
+                        break;
+                    } else {
+                        System.out.println(">>> Error: Type ONLY 'yes' or 'no'.");
+                    }
+                }
+
+                if (answer.equalsIgnoreCase("yes")) {
+                    Ministry ministry = null;
+
+                    switch (ministryChoice) {
+                        case 1: ministry = new MinistryOfInfrastructureAndTransport(); break;
+                        case 2: ministry = new MinistryOfNationalDefense(); break;
+                        case 3: ministry = new MinistryOfEnvironmentAndEnergy(); break;
+                        case 4: ministry = new MinistryOfTourism(); break;
+                        case 5: ministry = new MinistryHealth(); break;
+                        case 6: ministry = new MinistryOfEducationReligionsAndSports(); break;
+                    }
+
+                    if (ministry != null) {
+                        ministry.showBudget(input); // ΙΔΙΑ SCANNER
+                    }
+
                 } else {
-                    System.out.println("Invalid input for ministry selection.");
-                    input.nextLine();
+                    System.out.println("Detailed budget view cancelled.");
                 }
             }
-           
-            else {
-                System.out.println("Invalid choice. Please try again.");
-            }
 
-            // --- ΕΡΩΤΗΣΗ ΓΙΑ ΣΥΝΕΧΕΙΑ ---
-            // Ρωτάμε ΜΟΝΟ αν δεν έχεις επιλέξει ήδη έξοδο
-            if (keepRunning) {
+            // --- ΣΥΝΕΧΕΙΑ ---
+            String continueAnswer = "";
+
+            while (true) {
                 System.out.println("\n-------------------------------------------");
                 System.out.println("Would you like to perform another action? (yes/no)");
-                String continueAnswer = input.nextLine().trim();
+                continueAnswer = input.nextLine().trim();
 
-                if (continueAnswer.equalsIgnoreCase("no")) {
-                    keepRunning = false;
-                    System.out.println("System shutting down...");
+                if (continueAnswer.equalsIgnoreCase("yes") || continueAnswer.equalsIgnoreCase("no")) {
+                    break;
                 } else {
-                    System.out.println("\nReturning to main menu...\n");
+                    System.out.println(">>> Error: Please type 'yes' or 'no'.");
                 }
             }
 
-        } // Τέλος του while
+            if (continueAnswer.equalsIgnoreCase("no")) {
+                keepRunning = false;
+                System.out.println("System shutting down...");
+            } else {
+                System.out.println("\nReturning to main menu...\n");
+            }
+        }
 
         input.close();
     }

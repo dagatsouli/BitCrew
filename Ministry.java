@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public abstract class Ministry {
 
     protected String ministry;
@@ -42,5 +43,5 @@ public abstract class Ministry {
         System.out.println("Total: " + String.format("%,d EUR", getTotalBudget()));
     }
 
-    public abstract void showBudget();
+    public abstract void showBudget(Scanner input);
 }
