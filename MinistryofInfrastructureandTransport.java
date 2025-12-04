@@ -2,19 +2,16 @@ import java.util.Scanner;
 
 public class MinistryOfInfrastructureAndTransport extends Ministry {
 
-    // Constructor
     public MinistryOfInfrastructureAndTransport() {
         super(
             "Ministry of Infrastructure and Transport",
-            881_810_000L,     // regular budget
-            1_813_000_000L    // investment budget
+            881_810_000L,     // Regular Budget
+            1_813_000_000L    // Investment Budget
         );
     }
 
     @Override
-    public void showBudget() {
-
-        Scanner input = new Scanner(System.in);
+    public void showBudget(Scanner input) {
 
         // === REGULAR BUDGET CATEGORIES ===
         long employeeBenefits = 125_154_000L;
@@ -36,51 +33,71 @@ public class MinistryOfInfrastructureAndTransport extends Ministry {
         long coGeneralSecretariatOfTransport = 192_740_000L;
         long coOtherServiceUnits = 15_000L;
 
-        // Print main info
+        // === BASIC INFO ===
         printInfo();
 
-        // --- REGULAR BUDGET ---
-        System.out.print("\nDo you want to see the detailed Regular Budget categories? (yes/no): ");
-        String answer = input.nextLine().trim().toLowerCase();
+        // ===== REGULAR BUDGET DETAIL =====
+        String regularAnswer;
 
-        if (answer.equals("yes")) {
+        while (true) {
+            System.out.print("\nDo you want to see the detailed Regular Budget categories? (yes/no): ");
+            regularAnswer = input.nextLine().trim();
+
+            if (regularAnswer.equalsIgnoreCase("yes") || regularAnswer.equalsIgnoreCase("no")) {
+                break;
+            } else {
+                System.out.println(">>> Invalid answer. Please type 'yes' or 'no'.");
+            }
+        }
+
+        if (regularAnswer.equalsIgnoreCase("yes")) {
             System.out.println("\n----- Detailed Regular Budget Categories -----");
             System.out.println("Employee Benefits: " + String.format("%,d EUR", employeeBenefits));
-            System.out.println("Social benefits: " + String.format("%,d EUR", socialBenefits));
+            System.out.println("Social Benefits: " + String.format("%,d EUR", socialBenefits));
             System.out.println("Transfers: " + String.format("%,d EUR", transfers));
-            System.out.println("Purchases of goods and services: " + String.format("%,d EUR", goodsAndServices));
+            System.out.println("Goods & Services: " + String.format("%,d EUR", goodsAndServices));
             System.out.println("Subsidies: " + String.format("%,d EUR", subsidies));
             System.out.println("Other Expenses: " + String.format("%,d EUR", otherExpenses));
-            System.out.println("Fixed assets: " + String.format("%,d EUR", fixedAssets));
+            System.out.println("Fixed Assets: " + String.format("%,d EUR", fixedAssets));
             System.out.println("-----------------------------------------------");
         } else {
-            System.out.println("\nOK. No detailed Regular Budget will be displayed.");
+            System.out.println("\nOK. Regular Budget details skipped.");
         }
 
-        // --- INVESTMENT BUDGET ---
-        System.out.print("\nDo you want to see the Investment Budget analysis? (yes/no): ");
-        String answer2 = input.nextLine().trim().toLowerCase();
+        // ===== INVESTMENT BUDGET DETAIL =====
+        String investmentAnswer;
 
-        if (answer2.equals("yes")) {
+        while (true) {
+            System.out.print("\nDo you want to see the Investment Budget analysis? (yes/no): ");
+            investmentAnswer = input.nextLine().trim();
+
+            if (investmentAnswer.equalsIgnoreCase("yes") || investmentAnswer.equalsIgnoreCase("no")) {
+                break;
+            } else {
+                System.out.println(">>> Invalid answer. Please type 'yes' or 'no'.");
+            }
+        }
+
+        if (investmentAnswer.equalsIgnoreCase("yes")) {
             System.out.println("\n===== National Part of Public Investment Budget =====");
-            System.out.println("General Secretariat of Infrastructure: " + String.format("%,d EUR", generalSecretariatOfInfrastructure));
-            System.out.println("General Secretariat of Transport: " + String.format("%,d EUR", generalSecretariatOfTransport));
-            System.out.println("Other Service Units: " + String.format("%,d EUR", otherServiceUnits));
-            System.out.println("Recovery And Resilience Fund Expenditures: " + String.format("%,d EUR", recoveryAndResilienceFundExpenditures));
+            System.out.println("General Secretariat of Infrastructure: " +
+                    String.format("%,d EUR", generalSecretariatOfInfrastructure));
+            System.out.println("General Secretariat of Transport: " +
+                    String.format("%,d EUR", generalSecretariatOfTransport));
+            System.out.println("Other Service Units: " +
+                    String.format("%,d EUR", otherServiceUnits));
+            System.out.println("Recovery & Resilience Fund: " +
+                    String.format("%,d EUR", recoveryAndResilienceFundExpenditures));
 
             System.out.println("\n===== Co-Financed Part of Public Investment Budget =====");
-            System.out.println("General Secretariat of Infrastructure: " + String.format("%,d EUR", coGeneralSecretariatOfInfrastructure));
-            System.out.println("General Secretariat of Transport: " + String.format("%,d EUR", coGeneralSecretariatOfTransport));
-            System.out.println("Other Service Units: " + String.format("%,d EUR", coOtherServiceUnits));
+            System.out.println("General Secretariat of Infrastructure: " +
+                    String.format("%,d EUR", coGeneralSecretariatOfInfrastructure));
+            System.out.println("General Secretariat of Transport: " +
+                    String.format("%,d EUR", coGeneralSecretariatOfTransport));
+            System.out.println("Other Service Units: " +
+                    String.format("%,d EUR", coOtherServiceUnits));
         } else {
-            System.out.println("\nOK. No Investment Budget analysis will be displayed.");
+            System.out.println("\nOK. Investment Budget analysis skipped.");
         }
-
-        input.close();
-    }
-
-    public static void main(String[] args) {
-        MinistryOfInfrastructureAndTransport mod = new MinistryOfInfrastructureAndTransport();
-        mod.showBudget();
     }
 }
