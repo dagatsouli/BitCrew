@@ -1,117 +1,82 @@
 import java.util.Scanner;
 
-public class MinistryHealth {
-    public static void main(String[] args) {
+public class MinistryHealth extends Ministry {
 
-        Scanner sc = new Scanner(System.in);
+    // Constructor
+    public MinistryHealth() {
+        super(
+            "Ministry of Health",
+            6_607_824_000L,    // regular budget
+            7_745_824_000L     // investment budget
+        );
+    }
 
-        // Initial values (in EUR)
-        long employeeBenefits = 2342138000L;
-        long transfers = 4158244000L;
-        long goodsAndServices = 104679000L;
-        long credits = 1638000L;
-        long fixedAssets = 1725000L;
+    // Override abstract method
+    @Override
+    public void showBudget() {        
 
-        long totalRegular = employeeBenefits + transfers + goodsAndServices + credits + fixedAssets;
+        Scanner input = new Scanner(System.in);
 
-        long pdeNational = 519000000L;
-        long pdeCoFunded = 50000000L;
+        // === REGULAR BUDGET CATEGORIES ===
+        long healthServicesBenefits = 2_342_138_000L;
+        long transfers = 4_158_244_000L;
+        long goodsAndServices = 104_679_000L;  
+        long creditsUnderAllocation = 1_638_000L;
+        long fixedAssets = 1_725_000L;    
 
-        long totalPDE = pdeNational + pdeCoFunded;
-        long totalAll = totalRegular + totalPDE;
+        // === INVESTMENT BUDGET – NATIONAL PART ===
+        long natOtherUnits = 16_000_000L;  
+        long natRecoveryResilience = 503_000_000L;  
+        long totalNatInvestment = natOtherUnits + natRecoveryResilience;
 
-        System.out.println("MINISTRY OF HEALTH - BUDGET 2025");
+        // === INVESTMENT BUDGET – CO-FINANCED PART ===
+        long cofOtherUnits = 46_000_000L;  
+        long cofMigrationFlows = 4_000_000L;  
+        long totalCofInvestment = cofOtherUnits + cofMigrationFlows;
 
-        System.out.println("\nREGULAR BUDGET");
-        System.out.println("Transfers: " + String.format("%,d EUR", transfers));
-        System.out.println("Goods and Services: " + String.format("%,d EUR", goodsAndServices));
-        System.out.println("PDE - National Part: " + String.format("%,d EUR", pdeNational));
-        System.out.println("PDE - Co-Funded Part: " + String.format("%,d EUR", pdeCoFunded));
-        System.out.println("Total PDE: " + String.format("%,d EUR", totalPDE));
+        // Print main info
+        printInfo();
 
-        // USER INPUT FOR NEW VALUES
-        System.out.println("\nEnter new values (EUR) for each category.");
-        System.out.print("New Employee Benefits: ");
-        long newEmployeeBenefits = sc.nextLong();
+        // --- REGULAR BUDGET ---
+        System.out.print("Do you want to see Regular Budget analysis? (YES/NO): ");
+        String answer1 = input.nextLine();
 
-        System.out.print("New Transfers: ");
-        long newTransfers = sc.nextLong();
-
-        System.out.print("New Goods and Services: ");
-        long newGoodsAndServices = sc.nextLong();
-
-        System.out.print("New Credits Under Allocation: ");
-        long newCredits = sc.nextLong();
-
-        System.out.print("New Fixed Assets: ");
-        long newFixedAssets = sc.nextLong();
-
-        System.out.print("New PDE - National Part: ");
-        long newPdeNational = sc.nextLong();
-
-        System.out.print("New PDE - Co-Funded Part: ");
-        long newPdeCoFunded = sc.nextLong();
-
-        // NEW TOTALS
-        long newTotalRegular = newEmployeeBenefits + newTransfers + newGoodsAndServices + newCredits + newFixedAssets;
-        long newTotalPDE = newPdeNational + newPdeCoFunded;
-        long newTotalAll = newTotalRegular + newTotalPDE;
-
-        // DISPLAY CHANGES
-        System.out.println("\nCHANGES APPLIED");
-
-        System.out.println("Employee Benefits:    " 
-                + String.format("%,d EUR", employeeBenefits) 
-                + " → " 
-                + String.format("%,d EUR", newEmployeeBenefits));
-
-        System.out.println("Transfers:            " 
-                + String.format("%,d EUR", transfers) 
-                + " → " 
-                + String.format("%,d EUR", newTransfers));
-
-        System.out.println("Goods and Services:   " 
-                + String.format("%,d EUR", goodsAndServices) 
-                + " → " 
-                + String.format("%,d EUR", newGoodsAndServices));
-
-        System.out.println("Credits:              " 
-                + String.format("%,d EUR", credits) 
-                + " → " 
-                + String.format("%,d EUR", newCredits));
-
-        System.out.println("Fixed Assets:         " 
-                + String.format("%,d EUR", fixedAssets) 
-                + " → " 
-                + String.format("%,d EUR", newFixedAssets));
-
-        System.out.println("PDE - National:       " 
-                + String.format("%,d EUR", pdeNational) 
-                + " → " 
-                + String.format("%,d EUR", newPdeNational));
-
-        System.out.println("PDE - Co-Funded:      " 
-                + String.format("%,d EUR", pdeCoFunded) 
-                + " → " 
-                + String.format("%,d EUR", newPdeCoFunded));
-
-        System.out.println("\nNEW TOTAL REGULAR:    " 
-                + String.format("%,d EUR", newTotalRegular));
-
-        System.out.println("NEW TOTAL PDE:        " 
-                + String.format("%,d EUR", newTotalPDE));
-
-        System.out.println("NEW TOTAL BUDGET:     " 
-                + String.format("%,d EUR", newTotalAll));
-
-        long limit = 7_500_000_000L;
-
-        System.out.println("\nBudget Limit: " + String.format("%,d EUR", limit));
-
-        if (newTotalAll > limit) {
-            System.out.println("Budget Exceeded!");
-        } else {
-            System.out.println("Budget is within limit.");
+        if (answer1.equalsIgnoreCase("YES")) {
+            System.out.println("\n--- REGULAR BUDGET CATEGORIES ---");
+            System.out.println("Health Services & Benefits:   " + String.format("%,d EUR", healthServicesBenefits));
+            System.out.println("Transfers:                    " + String.format("%,d EUR", transfers));
+            System.out.println("Goods & Services:             " + String.format("%,d EUR", goodsAndServices));
+            System.out.println("Credits under Allocation:     " + String.format("%,d EUR", creditsUnderAllocation));
+            System.out.println("Fixed Assets:                 " + String.format("%,d EUR", fixedAssets));
+            System.out.println();
         }
+
+        // --- INVESTMENT BUDGET ---
+        System.out.print("Do you want to see Investment Budget analysis? (YES/NO): ");
+        String answer2 = input.nextLine();
+
+        if (answer2.equalsIgnoreCase("YES")) {
+            System.out.println("\n=== INVESTMENT BUDGET – NATIONAL PART ===");
+            System.out.println("Other Units of Ministry:      " + String.format("%,d EUR", natOtherUnits));
+            System.out.println("Recovery & Resilience Fund:   " + String.format("%,d EUR", natRecoveryResilience));
+            System.out.println("Total National Part:          " + String.format("%,d EUR", totalNatInvestment));
+
+            System.out.println("\n=== INVESTMENT BUDGET – CO-FINANCED PART ===");
+            System.out.println("Other Units of Ministry:      " + String.format("%,d EUR", cofOtherUnits));
+            System.out.println("Migration Flows Expenses:     " + String.format("%,d EUR", cofMigrationFlows));
+            System.out.println("Total Co-Financed Part:       " + String.format("%,d EUR", totalCofInvestment));
+        } else {
+            System.out.println("\nOK, no Investment Budget analysis will be displayed.");
+        }
+
+        input.close();
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        MinistryHealth mod = new MinistryHealth();
+        mod.showBudget();
     }
 }
+
+

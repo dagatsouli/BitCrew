@@ -1,45 +1,40 @@
 import java.util.Scanner;
 
-public class MinistryOfTourism {
-    public static void main(String[] args) {
+public class MinistryOfTourism extends Ministry {
+
+    // Constructor
+    public MinistryOfTourism() {
+        super(
+            "Ministry of Tourism",
+            39_293_000L,     // regular budget
+            150_000_000L     // investment budget
+        );
+    }
+
+    @Override
+    public void showBudget() {
 
         Scanner input = new Scanner(System.in);
 
-        String ministry = "Ministry of Tourism";
-        int year = 2025;
-
         // === MAIN BUDGETS ===
-        long regularBudget = 39293000L;          // Regular Budget
-        long investmentNational = 149000000L;    // Public Investment Budget - National Part
-        long investmentCofinanced = 1000000L;    // Public Investment Budget - Co-Financed Part
-        long investmentBudget = investmentNational + investmentCofinanced;
-        long total = regularBudget + investmentBudget;
-
-        // === REGULAR BUDGET CATEGORIES ===
-        long employeeBenefits = 14521000L;
-        long socialBenefits = 800000L;
-        long transfers = 12920000L;
-        long goodsAndServices = 10502000L;
-        long fixedAssets = 550000L;
+        long employeeBenefits = 14_521_000L;
+        long socialBenefits = 800_000L;
+        long transfers = 12_920_000L;
+        long goodsAndServices = 10_502_000L;
+        long fixedAssets = 550_000L;
 
         // === INVESTMENT BUDGET — NATIONAL PART ===
-        long natOtherUnits = 40000000L;
-        long natOtherUnitsAllocation = 40000000L;
-        long natResilienceFund = 109000000L;
-        long natResilienceAllocation = 109000000L;
+        long natOtherUnits = 40_000_000L;
+        long natOtherUnitsAllocation = 40_000_000L;
+        long natResilienceFund = 109_000_000L;
+        long natResilienceAllocation = 109_000_000L;
 
         // === INVESTMENT BUDGET — CO-FINANCED PART ===
-        long coOtherUnits = 1000000L;
-        long coAllocation = 1000000L;
+        long coOtherUnits = 1_000_000L;
+        long coAllocation = 1_000_000L;
 
-        System.out.println("=====================================");
-        System.out.println(ministry + " - Budget " + year);
-        System.out.println("=====================================\n");
-
-        // Show only 3 main categories first
-        System.out.println("Regular Budget: " + String.format("%,d EUR", regularBudget));
-        System.out.println("Public Investment Budget: " + String.format("%,d EUR", investmentBudget));
-        System.out.println("Total: " + String.format("%,d EUR", total));
+        // Print main info (comes from abstract parent)
+        printInfo();
 
         // === ASK FOR DETAILED REGULAR BUDGET ===
         System.out.print("\nDo you want to see the detailed Regular Budget categories? (yes/no): ");
@@ -52,12 +47,12 @@ public class MinistryOfTourism {
             System.out.println("Transfers: " + String.format("%,d EUR", transfers));
             System.out.println("Purchases of goods and services: " + String.format("%,d EUR", goodsAndServices));
             System.out.println("Fixed assets: " + String.format("%,d EUR", fixedAssets));
-            System.out.println("--------------------------------------------------");
+            System.out.println("-----------------------------------------------");
         } else {
             System.out.println("\nOK. No detailed Regular Budget will be displayed.");
         }
 
-        // === ASK FOR DETAILED INVESTMENT BUDGET ===
+        // === ASK FOR INVESTMENT BUDGET ===
         System.out.print("\nDo you want to see the Investment Budget analysis? (yes/no): ");
         String answer2 = input.nextLine().trim().toLowerCase();
 
@@ -81,5 +76,9 @@ public class MinistryOfTourism {
 
         input.close();
     }
-}
 
+    public static void main(String[] args) {
+        MinistryOfTourism mod = new MinistryOfTourism();
+        mod.showBudget();
+    }
+}
