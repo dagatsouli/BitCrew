@@ -1,151 +1,321 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CodeTheState {
+
+    // Global κρατικό υπόλοιπο (ενημερώνεται μετά από αλλαγές)
+    static long globalBalance = General.getBudgetBalance();
+
+    // Αποθήκευση αλλαγών για το summary
+    static class BudgetChange {
+        Ministry ministry;
+        long before;
+        long after;
+
+        BudgetChange(Ministry ministry, long before, long after) {
+            this.ministry = ministry;
+            this.before = before;
+            this.after = after;
+        }
+    }
 
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
 
-        // --- ΑΡΧΙΚΟ ΜΗΝΥΜΑ ---
-        System.out.println("The Prime Minister's decision is today! The whole country is waiting for you to start");
-        System.out.println("\nPlease press Enter to start");
-        input.nextLine(); // ΜΟΝΟ Scanner – ΟΧΙ System.in.read()
+        // Δημιουργία υπουργείων
+        MinistryOfInfrastructureAndTransport min1 = new MinistryOfInfrastructureAndTransport();
+        MinistryOfNationalDefense min2 = new MinistryOfNationalDefense();
+        MinistryOfEnvironmentAndEnergy min3 = new MinistryOfEnvironmentAndEnergy();
+        MinistryOfTourism min4 = new MinistryOfTourism();
+        MinistryHealth min5 = new MinistryHealth();
+        MinistryOfEducationReligionsAndSports min6 = new MinistryOfEducationReligionsAndSports();
 
-        System.out.println("\nStartup confirmed. Initiating procedures...\n");
+        System.out.println("Press Enter to start...");
+        input.nextLine();
 
         boolean keepRunning = true;
 
-        // --- ΚΥΡΙΑ ΛΟΥΠΑ ΠΡΟΓΡΑΜΜΑΤΟΣ ---
         while (keepRunning) {
 
-            int choice = -1;
+            System.out.println("\n=====================================");
+            System.out.println("1. View Revenues & Expenses");
+            System.out.println("2. View Ministries");
+            System.out.println("3. Adjust Ministries' Budgets");
+            System.out.println("0. Exit");
+            System.out.println("=====================================");
+            System.out.print("Your choice: ");
 
-            // ===== MENU VALIDATION LOOP =====
-            while (true) {
-                System.out.println("=====================================");
-                System.out.println("Press 1 to view Revenues & Expenses");
-                System.out.println("Press 2 to view all Ministries");
-                System.out.println("Press 0 to Exit");
-                System.out.println("=====================================");
-                System.out.print("Your choice: ");
-
-                if (input.hasNextInt()) {
-                    choice = input.nextInt();
-                    input.nextLine(); // καθαρισμός newline
-
-                    if (choice >= 0 && choice <= 2) {
-                        break;
-                    } else {
-                        System.out.println("\n>>> Error: Please choose 0, 1 or 2.\n");
-                    }
-                } else {
-                    System.out.println("\n>>> Error: Invalid input. Please enter a number.\n");
-                    input.nextLine();
-                }
+            int choice;
+            if (!input.hasNextInt()) {
+                input.nextLine();
+                continue;
             }
+            choice = input.nextInt();
+            input.nextLine();
 
-            // ===== ΕΠΙΛΟΓΕΣ =====
-            if (choice == 0) {
-                System.out.println("Exiting system. Goodbye, Prime Minister.");
-                keepRunning = false;
-                break;
-            }
+            if (choice == 0) break;
 
-            else if (choice == 1) {
-                System.out.println("\nOpening Revenues & Expenses menu...");
+            // ----- OPTION 1 -----
+            if (choice == 1) {
                 General.showReport(input);
             }
 
+            // ----- OPTION 2 -----
             else if (choice == 2) {
 
                 System.out.println("\n========== Ministries ==========");
-                System.out.println("1. Ministry of Infrastructure and Transport");
-                System.out.println("2. Ministry of National Defense");
-                System.out.println("3. Ministry of Environment and Energy");
-                System.out.println("4. Ministry of Tourism");
-                System.out.println("5. Ministry of Health");
-                System.out.println("6. Ministry of Education, Religions and Sports");
-                System.out.println("==================================");
+                System.out.println("1. " + min1.getMinistry());
+                System.out.println("2. " + min2.getMinistry());
+                System.out.println("3. " + min3.getMinistry());
+                System.out.println("4. " + min4.getMinistry());
+                System.out.println("5. " + min5.getMinistry());
+                System.out.println("6. " + min6.getMinistry());
 
-                int ministryChoice = -1;
-
-                // --- VALIDATION ΓΙΑ ΥΠΟΥΡΓΕΙΟ ---
+                int m;
                 while (true) {
-                    System.out.print("\nChoose a Ministry (1 - 6): ");
-
+                    System.out.print("Choose a Ministry (1-6): ");
                     if (input.hasNextInt()) {
-                        ministryChoice = input.nextInt();
+                        m = input.nextInt();
                         input.nextLine();
+                        if (m >= 1 && m <= 6) break;
+                    } else input.nextLine();
+                    System.out.println(">>> Invalid choice.");
+                }
 
-                        if (ministryChoice >= 1 && ministryChoice <= 6) {
+                Ministry selected = switch (m) {
+                    case 1 -> min1;
+                    case 2 -> min2;
+                    case 3 -> min3;
+                    case 4 -> min4;
+                    case 5 -> min5;
+                    case 6 -> min6;
+                    default -> null;
+                };
+
+                if (selected != null) selected.showBudget(input);
+            }
+
+            // ----- OPTION 3 -----
+            else if (choice == 3) {
+
+                long initialBalance = globalBalance;
+                long remainingBalance = globalBalance;
+
+                System.out.println("\n========== CURRENT STATE ==========");
+                if (initialBalance > 0)
+                    System.out.println("Status: SURPLUS (" + String.format("%,d", initialBalance) + " EUR)");
+                else if (initialBalance < 0)
+                    System.out.println("Status: DEFICIT (" + String.format("%,d", Math.abs(initialBalance)) + " EUR)");
+                else
+                    System.out.println("Status: BALANCED");
+                System.out.println("===================================\n");
+
+                List<BudgetChange> changes = new ArrayList<>();
+                boolean modifying = true;
+
+                while (modifying) {
+
+                    System.out.println("Remaining balance indicator: " + String.format("%,d EUR", remainingBalance));
+
+                    System.out.println("\nSelect a Ministry to modify (1–6) or 0 to stop:");
+                    System.out.println("1. " + min1.getMinistry());
+                    System.out.println("2. " + min2.getMinistry());
+                    System.out.println("3. " + min3.getMinistry());
+                    System.out.println("4. " + min4.getMinistry());
+                    System.out.println("5. " + min5.getMinistry());
+                    System.out.println("6. " + min6.getMinistry());
+                    System.out.print("Your choice: ");
+
+                    int minChoice;
+                    if (!input.hasNextInt()) { input.nextLine(); continue; }
+                    minChoice = input.nextInt();
+                    input.nextLine();
+
+                    if (minChoice == 0) break;
+
+                    Ministry selected = switch (minChoice) {
+                        case 1 -> min1;
+                        case 2 -> min2;
+                        case 3 -> min3;
+                        case 4 -> min4;
+                        case 5 -> min5;
+                        case 6 -> min6;
+                        default -> null;
+                    };
+
+                    if (selected == null) continue;
+
+                    // --- Regular / Investment ---
+                    int typeChoice;
+                    while (true) {
+                        System.out.println("\nWhich budget?");
+                        System.out.println("1 = Regular");
+                        System.out.println("2 = Investment");
+                        System.out.print("Your choice: ");
+
+                        if (input.hasNextInt()) {
+                            typeChoice = input.nextInt();
+                            input.nextLine();
+                            if (typeChoice == 1 || typeChoice == 2) break;
+                        } else input.nextLine();
+
+                        System.out.println(">>> Enter 1 or 2.");
+                    }
+
+                    // --- Increase / Decrease ---
+                    int modType;
+                    while (true) {
+                        System.out.println("\n1 = Increase");
+                        System.out.println("2 = Decrease");
+                        System.out.print("Your choice: ");
+
+                        if (input.hasNextInt()) {
+                            modType = input.nextInt();
+                            input.nextLine();
+                            if (modType == 1 || modType == 2) break;
+                        } else input.nextLine();
+
+                        System.out.println(">>> Enter 1 or 2.");
+                    }
+
+                    // --- Amount ---
+                    long amount;
+                    while (true) {
+                        System.out.print("Enter amount (EUR): ");
+                        if (input.hasNextLong()) {
+                            amount = input.nextLong();
+                            input.nextLine();
+
+                            if (amount <= 0) {
+                                System.out.println(">>> Must be positive.");
+                                continue;
+                            }
+
+                            if (amount > General.TOTAL_EXPENSES) {
+                                System.out.println(">>> Error: The amount entered is not realistic for the national economy.");
+                                continue;
+                            }
+
                             break;
                         } else {
-                            System.out.println(">>> Error: Choose a number between 1 and 6.");
+                            input.nextLine();
+                            System.out.println(">>> Invalid number.");
                         }
+                    }
+
+                    long signedAmount = (modType == 1 ? amount : -amount);
+
+                    // BEFORE
+                    long beforeTotal = selected.getTotalBudget();
+
+                    // === CHECK: Ministry cannot go below 0 ===
+                    if (typeChoice == 1) {
+                        long newRegular = selected.regularBudget + signedAmount;
+
+                        if (newRegular < 0) {
+                            System.out.println(">>> Error: Regular budget cannot go below 0.");
+                            continue;
+                        }
+
+                        selected.regularBudget = newRegular;
+
                     } else {
-                        System.out.println(">>> Error: Invalid input.");
-                        input.nextLine();
+                        long newInvestment = selected.investmentBudget + signedAmount;
+
+                        if (newInvestment < 0) {
+                            System.out.println(">>> Error: Investment budget cannot go below 0.");
+                            continue;
+                        }
+
+                        selected.investmentBudget = newInvestment;
                     }
+
+                    // UPDATE TOTAL
+                    selected.totalBudget = selected.regularBudget + selected.investmentBudget;
+
+                    // === MINISTRY MESSAGES ===
+                    if (modType == 1) { // Increase
+                        switch (minChoice) {
+                            case 1 -> System.out.println("Revenue increase allows the launch of new infrastructure projects and the modernization of transport systems.");
+                            case 2 -> System.out.println("Higher revenue strengthens national defense through upgraded equipment and improved military training.");
+                            case 3 -> System.out.println("Increased revenue supports renewable energy development and environmental protection programs.");
+                            case 4 -> System.out.println("Higher revenue boosts international tourism promotion and improves tourism infrastructure.");
+                            case 5 -> System.out.println("Increased revenue improves hospital equipment, supports new hires, and enhances healthcare services.");
+                            case 6 -> System.out.println("Higher revenue allows school upgrades, university support, and increased funding for cultural programs.");
+                        }
+                    } else { // Decrease
+                        switch (minChoice) {
+                            case 1 -> System.out.println("Revenue decrease leads to delays in infrastructure projects and reduced maintenance of transport networks.");
+                            case 2 -> System.out.println("Lower revenue limits equipment upgrades and reduces military training programs.");
+                            case 3 -> System.out.println("Decreased revenue slows down green energy projects and weakens environmental protection efforts.");
+                            case 4 -> System.out.println("Lower revenue reduces tourism promotion and delays upgrades of tourist facilities.");
+                            case 5 -> System.out.println("Reduced revenue causes staff shortages and limits hospital equipment upgrades.");
+                            case 6 -> System.out.println("Lower revenue leads to underfunded schools, limited research support, and fewer cultural activities.");
+                        }
+                    }
+
+                    // AFTER
+                    long afterTotal = selected.getTotalBudget();
+
+                    // SAVE CHANGE
+                    changes.add(new BudgetChange(selected, beforeTotal, afterTotal));
+
+                    // Update national balance
+                    remainingBalance -= signedAmount;
+
+                    System.out.println("\nUpdated:");
+                    selected.printInfo();
+
+                    System.out.print("\nModify another? (yes/no): ");
+                    String cont = input.nextLine().trim();
+                    if (!cont.equalsIgnoreCase("yes"))
+                        modifying = false;
                 }
 
-                // --- YES / NO ΓΙΑ DETAIL VIEW ---
-                String answer = "";
+                // ===== SUMMARY =====
+                if (!changes.isEmpty()) {
 
-                while (true) {
-                    System.out.print("Do you want to see the detailed budget? (yes/no): ");
-                    answer = input.nextLine().trim();
+                    System.out.println("\n========= SUMMARY OF CHANGES =========");
 
-                    if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("no")) {
-                        break;
-                    } else {
-                        System.out.println(">>> Error: Type ONLY 'yes' or 'no'.");
+                    for (BudgetChange c : changes) {
+                        long diff = c.after - c.before;
+
+                        System.out.println("\nMinistry: " + c.ministry.getMinistry());
+                        System.out.println("Before: " + String.format("%,d EUR", c.before));
+                        System.out.println("After: " + String.format("%,d EUR", c.after));
+
+                        if (diff >= 0)
+                            System.out.println("Change: +" + String.format("%,d EUR", diff));
+                        else
+                            System.out.println("Change: -" + String.format("%,d EUR", Math.abs(diff)));
                     }
+
+                    System.out.println("\nInitial Balance: " + String.format("%,d EUR", initialBalance));
+                    System.out.println("Final Balance: " + String.format("%,d EUR", remainingBalance));
+
+                    if (remainingBalance > 0)
+                        System.out.println("Final Status: SURPLUS");
+                    else if (remainingBalance < 0)
+                        System.out.println("Final Status: DEFICIT");
+                    else
+                        System.out.println("Final Status: BALANCED");
+
+                    System.out.println("======================================");
                 }
 
-                if (answer.equalsIgnoreCase("yes")) {
-                    Ministry ministry = null;
-
-                    switch (ministryChoice) {
-                        case 1: ministry = new MinistryOfInfrastructureAndTransport(); break;
-                        case 2: ministry = new MinistryOfNationalDefense(); break;
-                        case 3: ministry = new MinistryOfEnvironmentAndEnergy(); break;
-                        case 4: ministry = new MinistryOfTourism(); break;
-                        case 5: ministry = new MinistryHealth(); break;
-                        case 6: ministry = new MinistryOfEducationReligionsAndSports(); break;
-                    }
-
-                    if (ministry != null) {
-                        ministry.showBudget(input); // ΙΔΙΑ SCANNER
-                    }
-
-                } else {
-                    System.out.println("Detailed budget view cancelled.");
-                }
+                // Update global balance for next run
+                globalBalance = remainingBalance;
             }
 
-            // --- ΣΥΝΕΧΕΙΑ ---
-            String continueAnswer = "";
-
-            while (true) {
-                System.out.println("\n-------------------------------------------");
-                System.out.println("Would you like to perform another action? (yes/no)");
-                continueAnswer = input.nextLine().trim();
-
-                if (continueAnswer.equalsIgnoreCase("yes") || continueAnswer.equalsIgnoreCase("no")) {
-                    break;
-                } else {
-                    System.out.println(">>> Error: Please type 'yes' or 'no'.");
-                }
-            }
-
-            if (continueAnswer.equalsIgnoreCase("no")) {
-                keepRunning = false;
-                System.out.println("System shutting down...");
-            } else {
-                System.out.println("\nReturning to main menu...\n");
-            }
+            // Continue?
+            System.out.print("\nAnother action? (yes/no): ");
+            String ans = input.nextLine();
+            if (!ans.equalsIgnoreCase("yes")) keepRunning = false;
         }
 
         input.close();
+        System.out.println("System shutting down...");
     }
 }

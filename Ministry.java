@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public abstract class Ministry {
 
     protected String ministry;
@@ -30,14 +31,25 @@ public abstract class Ministry {
     public long getTotalBudget() {
         return totalBudget;
     }
-    
+
+    // ΝΕΕΣ ΜΕΘΟΔΟΙ: αύξηση προϋπολογισμών
+    public void increaseRegularBudget(long amount) {
+        if (amount <= 0) return;
+        regularBudget += amount;
+        totalBudget += amount;
+    }
+
+    public void increaseInvestmentBudget(long amount) {
+        if (amount <= 0) return;
+        investmentBudget += amount;
+        totalBudget += amount;
+    }
+
     public void printInfo() {
-    // Method to print ministry information
         System.out.println("=====================================");
-        System.out.println(getMinistry() + " - Budget " + "2025");
+        System.out.println(getMinistry() + " - Budget 2025");
         System.out.println("=====================================\n");
 
-        // Show only 3 main categories first
         System.out.println("Regular Budget: " + String.format("%,d EUR", getRegularBudget()));
         System.out.println("Public Investment Budget: " + String.format("%,d EUR", getInvestmentBudget()));
         System.out.println("Total: " + String.format("%,d EUR", getTotalBudget()));

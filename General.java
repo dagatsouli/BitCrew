@@ -2,13 +2,24 @@ import java.util.Scanner;
 
 public class General {
 
+    // συνολικά ποσά (για απλό έλεγχο πλεονάσματος)
+    public static final long TOTAL_REVENUES  = 1_304_827_000_000L;
+    public static final long TOTAL_EXPENSES  = 1_307_907_506_000L;
+
+    // διαφορά > 0 => πλεόνασμα, < 0 => έλλειμμα
+    public static long getBudgetBalance() {
+        return TOTAL_REVENUES - TOTAL_EXPENSES;
+    }
+
     public static void showReport(Scanner input) {
 
         System.out.println(
-            "The total revenues of Greece, based on the state budget for 2025, amount to 1,304,827,000,000 EUR."
+            "The total revenues of Greece, based on the state budget for 2025, amount to "
+            + String.format("%,d EUR.", TOTAL_REVENUES)
         );
         System.out.println(
-            "The total expenditures of Greece, based on the state budget for 2025, amount to 1,307,907,506,000 EUR."
+            "The total expenditures of Greece, based on the state budget for 2025, amount to "
+            + String.format("%,d EUR.", TOTAL_EXPENSES)
         );
 
         // === REVENUES ===
@@ -57,22 +68,22 @@ public class General {
         if (revenueAnswer.equalsIgnoreCase("yes")) {
             System.out.println("\n----- Detailed Version of the Revenues -----");
             System.out.println("Taxes: " + String.format("%,d EUR", taxes));
-            System.out.println("Social Contributions: " + String.format("%,d EUR", socialContributions));
+            System.out.println("Social contributions: " + String.format("%,d EUR", socialContributions));
             System.out.println("Transfers: " + String.format("%,d EUR", transfers));
-            System.out.println("Sales of Goods & Services: " + String.format("%,d EUR", salesOfGoods));
-            System.out.println("Other Current Revenues: " + String.format("%,d EUR", otherCurrentRevenues));
-            System.out.println("Fixed Assets: " + String.format("%,d EUR", fixedAssets));
-            System.out.println("Debt Securities: " + String.format("%,d EUR", debtSecurities));
+            System.out.println("Sales of goods and services: " + String.format("%,d EUR", salesOfGoods));
+            System.out.println("Other current revenues: " + String.format("%,d EUR", otherCurrentRevenues));
+            System.out.println("Fixed assets: " + String.format("%,d EUR", fixedAssets));
+            System.out.println("Debt securities: " + String.format("%,d EUR", debtSecurities));
             System.out.println("Loans: " + String.format("%,d EUR", loans));
-            System.out.println("Equity Securities & Investments: " +
+            System.out.println("Equity securities and investment: " +
                     String.format("%,d EUR", equitySecuritiesAndInvestment));
-            System.out.println("Liabilities from Currency: " +
+            System.out.println("Liabilities from currency: " +
                     String.format("%,d EUR", liabilitiesFromCurrency));
-            System.out.println("Financial Derivatives: " +
+            System.out.println("Financial derivatives: " +
                     String.format("%,d EUR", financialDerivatives));
-            System.out.println("--------------------------------------------");
+            System.out.println("--------------------------------------------------");
         } else {
-            System.out.println("\nOK. Revenue details skipped.");
+            System.out.println("\nOK. No detailed Revenues will be displayed.");
         }
 
         // ===== EXPENSES DETAIL =====
@@ -91,37 +102,26 @@ public class General {
 
         if (expenseAnswer.equalsIgnoreCase("yes")) {
             System.out.println("\n----- Detailed Version of the Expenses -----");
-            System.out.println("Employee Benefits: " +
-                    String.format("%,d EUR", employeeBenefits));
-            System.out.println("Social Benefits: " +
-                    String.format("%,d EUR", socialBenefits));
-            System.out.println("Transfers: " +
-                    String.format("%,d EUR", transfersExpenses));
-            System.out.println("Goods & Services: " +
-                    String.format("%,d EUR", purchasesGoodsServices));
-            System.out.println("Subsidies: " +
-                    String.format("%,d EUR", subsidies));
-            System.out.println("Interest: " +
-                    String.format("%,d EUR", interest));
-            System.out.println("Other Expenses: " +
-                    String.format("%,d EUR", otherExpenses));
-            System.out.println("Allocated Credits: " +
-                    String.format("%,d EUR", allocatedCredits));
-            System.out.println("Fixed Assets: " +
-                    String.format("%,d EUR", fixedAssetsExpenses));
-            System.out.println("Valuables: " +
-                    String.format("%,d EUR", valuables));
-            System.out.println("Loans: " +
-                    String.format("%,d EUR", loansExpenses));
+            System.out.println("Employee benefits: " + String.format("%,d EUR", employeeBenefits));
+            System.out.println("Social benefits: " + String.format("%,d EUR", socialBenefits));
+            System.out.println("Transfers: " + String.format("%,d EUR", transfersExpenses));
+            System.out.println("Purchases of goods and services: " + String.format("%,d EUR", purchasesGoodsServices));
+            System.out.println("Subsidies: " + String.format("%,d EUR", subsidies));
+            System.out.println("Interest: " + String.format("%,d EUR", interest));
+            System.out.println("Other expenses: " + String.format("%,d EUR", otherExpenses));
+            System.out.println("Allocated credits: " + String.format("%,d EUR", allocatedCredits));
+            System.out.println("Fixed assets: " + String.format("%,d EUR", fixedAssetsExpenses));
+            System.out.println("Valuables: " + String.format("%,d EUR", valuables));
+            System.out.println("Loans: " + String.format("%,d EUR", loansExpenses));
             System.out.println("Equity Securities Expenses: " +
                     String.format("%,d EUR", equitySecuritiesExpenses));
             System.out.println("Debt Securities Expenses: " +
                     String.format("%,d EUR", debtSecuritiesExpenses));
             System.out.println("Loans 2 Expenses: " +
                     String.format("%,d EUR", loans2Expenses));
-            System.out.println("--------------------------------------------");
+            System.out.println("--------------------------------------------------");
         } else {
-            System.out.println("\nOK. Expense details skipped.");
+            System.out.println("\nOK. No detailed Expenses will be displayed.");
         }
     }
 }
