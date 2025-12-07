@@ -4,10 +4,8 @@ import java.util.List;
 
 public class CodeTheState {
 
-    // Global κρατικό υπόλοιπο (ενημερώνεται μετά από αλλαγές)
     static long globalBalance = General.getBudgetBalance();
 
-    // Αποθήκευση αλλαγών για το summary
     static class BudgetChange {
         Ministry ministry;
         long before;
@@ -24,7 +22,6 @@ public class CodeTheState {
 
         Scanner input = new Scanner(System.in);
 
-        // Δημιουργία υπουργείων
         MinistryOfInfrastructureAndTransport min1 = new MinistryOfInfrastructureAndTransport();
         MinistryOfNationalDefense min2 = new MinistryOfNationalDefense();
         MinistryOfEnvironmentAndEnergy min3 = new MinistryOfEnvironmentAndEnergy();
@@ -32,6 +29,7 @@ public class CodeTheState {
         MinistryHealth min5 = new MinistryHealth();
         MinistryOfEducationReligionsAndSports min6 = new MinistryOfEducationReligionsAndSports();
 
+        System.out.println("The Prime Minister's decision is today! The whole country is waiting for you!");
         System.out.println("Press Enter to start...");
         input.nextLine();
 
@@ -57,12 +55,10 @@ public class CodeTheState {
 
             if (choice == 0) break;
 
-            // ----- OPTION 1 -----
             if (choice == 1) {
                 General.showReport(input);
             }
 
-            // ----- OPTION 2 -----
             else if (choice == 2) {
 
                 System.out.println("\n========== Ministries ==========");
@@ -97,7 +93,6 @@ public class CodeTheState {
                 if (selected != null) selected.showBudget(input);
             }
 
-            // ----- OPTION 3 -----
             else if (choice == 3) {
 
                 long initialBalance = globalBalance;
@@ -147,7 +142,6 @@ public class CodeTheState {
 
                     if (selected == null) continue;
 
-                    // --- Regular / Investment ---
                     int typeChoice;
                     while (true) {
                         System.out.println("\nWhich budget?");
@@ -164,7 +158,6 @@ public class CodeTheState {
                         System.out.println(">>> Enter 1 or 2.");
                     }
 
-                    // --- Increase / Decrease ---
                     int modType;
                     while (true) {
                         System.out.println("\n1 = Increase");
@@ -180,7 +173,6 @@ public class CodeTheState {
                         System.out.println(">>> Enter 1 or 2.");
                     }
 
-                    // --- Amount ---
                     long amount;
                     while (true) {
                         System.out.print("Enter amount (EUR): ");
@@ -207,10 +199,8 @@ public class CodeTheState {
 
                     long signedAmount = (modType == 1 ? amount : -amount);
 
-                    // BEFORE
                     long beforeTotal = selected.getTotalBudget();
 
-                    // === CHECK: Ministry cannot go below 0 ===
                     if (typeChoice == 1) {
                         long newRegular = selected.regularBudget + signedAmount;
 
@@ -232,11 +222,9 @@ public class CodeTheState {
                         selected.investmentBudget = newInvestment;
                     }
 
-                    // UPDATE TOTAL
                     selected.totalBudget = selected.regularBudget + selected.investmentBudget;
 
-                    // === MINISTRY MESSAGES ===
-                    if (modType == 1) { // Increase
+                    if (modType == 1) { 
                         switch (minChoice) {
                             case 1 -> System.out.println("Revenue increase allows the launch of new infrastructure projects and the modernization of transport systems.");
                             case 2 -> System.out.println("Higher revenue strengthens national defense through upgraded equipment and improved military training.");
@@ -245,7 +233,7 @@ public class CodeTheState {
                             case 5 -> System.out.println("Increased revenue improves hospital equipment, supports new hires, and enhances healthcare services.");
                             case 6 -> System.out.println("Higher revenue allows school upgrades, university support, and increased funding for cultural programs.");
                         }
-                    } else { // Decrease
+                    } else { 
                         switch (minChoice) {
                             case 1 -> System.out.println("Revenue decrease leads to delays in infrastructure projects and reduced maintenance of transport networks.");
                             case 2 -> System.out.println("Lower revenue limits equipment upgrades and reduces military training programs.");
@@ -256,13 +244,10 @@ public class CodeTheState {
                         }
                     }
 
-                    // AFTER
                     long afterTotal = selected.getTotalBudget();
 
-                    // SAVE CHANGE
                     changes.add(new BudgetChange(selected, beforeTotal, afterTotal));
 
-                    // Update national balance
                     remainingBalance -= signedAmount;
 
                     System.out.println("\nUpdated:");
@@ -274,7 +259,6 @@ public class CodeTheState {
                         modifying = false;
                 }
 
-                // ===== SUMMARY =====
                 if (!changes.isEmpty()) {
 
                     System.out.println("\n========= SUMMARY OF CHANGES =========");
@@ -305,11 +289,9 @@ public class CodeTheState {
                     System.out.println("======================================");
                 }
 
-                // Update global balance for next run
                 globalBalance = remainingBalance;
             }
 
-            // Continue?
             System.out.print("\nAnother action? (yes/no): ");
             String ans = input.nextLine();
             if (!ans.equalsIgnoreCase("yes")) keepRunning = false;
