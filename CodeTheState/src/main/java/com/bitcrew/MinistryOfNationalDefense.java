@@ -1,12 +1,13 @@
+package com.bitcrew;
 import java.util.Scanner;
 
-public class MinistryOfTourism extends Ministry {
+public class MinistryOfNationalDefense extends Ministry {
 
-    public MinistryOfTourism() {
+    public MinistryOfNationalDefense() {
         super(
-            "Ministry of Tourism",
-            39_293_000L,     // Regular Budget
-            150_000_000L     // Investment Budget
+            "Ministry of National Defense",
+            6_061_000_000L,   // Regular Budget
+            69_000_000L       // Investment Budget
         );
     }
 
@@ -14,21 +15,25 @@ public class MinistryOfTourism extends Ministry {
     public void showBudget(Scanner input) {
 
         // === REGULAR BUDGET CATEGORIES ===
-        long employeeBenefits = 14_521_000L;
-        long socialBenefits = 800_000L;
-        long transfers = 12_920_000L;
-        long goodsAndServices = 10_502_000L;
-        long fixedAssets = 550_000L;
+        long employeeBenefits = 2_831_342_000L;
+        long socialBenefits = 77_846_000L;
+        long transfers = 51_719_000L;
+        long goodsAndServices = 530_721_000L;
+        long otherExpenses = 1_337_000L;
+        long creditsUnderAllocation = 38_092_000L;
+        long fixedAssets = 2_529_943_000L;
 
         // === INVESTMENT BUDGET — NATIONAL PART ===
-        long natOtherUnits = 40_000_000L;
-        long natOtherUnitsAllocation = 40_000_000L;
-        long natResilienceFund = 109_000_000L;
-        long natResilienceAllocation = 109_000_000L;
+        long natArmyGeneralStaff = 26_000_000L;
+        long natNavalGeneralStaff = 7_400_000L;
+        long natAirForceGeneralStaff = 11_500_000L;
+        long natDefenseUnits = 100_000L;
 
         // === INVESTMENT BUDGET — CO-FINANCED PART ===
-        long coOtherUnits = 1_000_000L;
-        long coAllocation = 1_000_000L;
+        long coArmyGeneralStaff = 7_500_000L;
+        long coNavalGeneralStaff = 8_500_000L;
+        long coAirForceGeneralStaff = 7_000_000L;
+        long coDefenseUnits = 1_000_000L;
 
         // === BASIC INFO ===
         printInfo();
@@ -57,6 +62,10 @@ public class MinistryOfTourism extends Ministry {
                     String.format("%,d EUR", transfers));
             System.out.println("Goods & Services: " +
                     String.format("%,d EUR", goodsAndServices));
+            System.out.println("Other Expenses: " +
+                    String.format("%,d EUR", otherExpenses));
+            System.out.println("Credits under Allocation: " +
+                    String.format("%,d EUR", creditsUnderAllocation));
             System.out.println("Fixed Assets: " +
                     String.format("%,d EUR", fixedAssets));
             System.out.println("-----------------------------------------------");
@@ -79,22 +88,25 @@ public class MinistryOfTourism extends Ministry {
         }
 
         if (investmentAnswer.equalsIgnoreCase("yes")) {
-
             System.out.println("\n===== Investment Budget — National Part =====");
-            System.out.println("Other Units: " +
-                    String.format("%,d EUR", natOtherUnits));
-            System.out.println("Credits under Allocation: " +
-                    String.format("%,d EUR", natOtherUnitsAllocation));
-            System.out.println("Recovery & Resilience Facility Expenses: " +
-                    String.format("%,d EUR", natResilienceFund));
-            System.out.println("Credits under Allocation: " +
-                    String.format("%,d EUR", natResilienceAllocation));
+            System.out.println("Army General Staff: " +
+                    String.format("%,d EUR", natArmyGeneralStaff));
+            System.out.println("Naval General Staff: " +
+                    String.format("%,d EUR", natNavalGeneralStaff));
+            System.out.println("Air Force General Staff: " +
+                    String.format("%,d EUR", natAirForceGeneralStaff));
+            System.out.println("National Defense Units: " +
+                    String.format("%,d EUR", natDefenseUnits));
 
             System.out.println("\n===== Investment Budget — Co-Financed Part =====");
-            System.out.println("Other Units: " +
-                    String.format("%,d EUR", coOtherUnits));
-            System.out.println("Credits under Allocation: " +
-                    String.format("%,d EUR", coAllocation));
+            System.out.println("Army General Staff: " +
+                    String.format("%,d EUR", coArmyGeneralStaff));
+            System.out.println("Naval General Staff: " +
+                    String.format("%,d EUR", coNavalGeneralStaff));
+            System.out.println("Air Force General Staff: " +
+                    String.format("%,d EUR", coAirForceGeneralStaff));
+            System.out.println("National Defense Units: " +
+                    String.format("%,d EUR", coDefenseUnits));
         } else {
             System.out.println("\nOK. Investment Budget analysis skipped.");
         }

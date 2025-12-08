@@ -1,3 +1,4 @@
+package com.bitcrew;
 import java.util.Scanner;
 
 public class MinistryOfEducationReligionsAndSports extends Ministry {
