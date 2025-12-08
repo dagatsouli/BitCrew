@@ -1,4 +1,9 @@
+package com.bitcrew;
 import java.util.Scanner;
+
+import com.bitcrew.General;
+import com.bitcrew.Ministry;
+
 import java.util.ArrayList;
 import java.util.List;
 

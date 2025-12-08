@@ -1,12 +1,13 @@
+package com.bitcrew;
 import java.util.Scanner;
 
-public class MinistryOfNationalDefense extends Ministry {
+public class MinistryOfEnvironmentAndEnergy extends Ministry {
 
-    public MinistryOfNationalDefense() {
+    public MinistryOfEnvironmentAndEnergy() {
         super(
-            "Ministry of National Defense",
-            6_061_000_000L,   // Regular Budget
-            69_000_000L       // Investment Budget
+            "Ministry of Environment and Energy",
+            319_227_000L,      // Regular Budget
+            2_022_000_000L     // Investment Budget
         );
     }
 
@@ -14,25 +15,29 @@ public class MinistryOfNationalDefense extends Ministry {
     public void showBudget(Scanner input) {
 
         // === REGULAR BUDGET CATEGORIES ===
-        long employeeBenefits = 2_831_342_000L;
-        long socialBenefits = 77_846_000L;
-        long transfers = 51_719_000L;
-        long goodsAndServices = 530_721_000L;
-        long otherExpenses = 1_337_000L;
-        long creditsUnderAllocation = 38_092_000L;
-        long fixedAssets = 2_529_943_000L;
+        long employeeBenefits = 99_679_000L;
+        long socialBenefits = 2_733_000L;
+        long transfers = 189_940_000L;
+        long goodsAndServices = 19_928_000L;
+        long creditsUnderAllocation = 6_680_000L;
+        long fixedAssets = 267_000L;
 
         // === INVESTMENT BUDGET — NATIONAL PART ===
-        long natArmyGeneralStaff = 26_000_000L;
-        long natNavalGeneralStaff = 7_400_000L;
-        long natAirForceGeneralStaff = 11_500_000L;
-        long natDefenseUnits = 100_000L;
+        long natSpatialPlanning = 23_849_000L;
+        long natEnergyMinerals = 29_628_000L;
+        long natNaturalEnvironment = 3_739_000L;
+        long natWasteManagement = 3_000_000L;
+        long natForests = 9_760_000L;
+        long natOtherUnits = 24_000L;
+        long natRecoveryFund = 1_362_000_000L;
 
         // === INVESTMENT BUDGET — CO-FINANCED PART ===
-        long coArmyGeneralStaff = 7_500_000L;
-        long coNavalGeneralStaff = 8_500_000L;
-        long coAirForceGeneralStaff = 7_000_000L;
-        long coDefenseUnits = 1_000_000L;
+        long coSpatialPlanning = 67_100_000L;
+        long coEnergyMinerals = 205_933_000L;
+        long coNaturalEnvironment = 260_967_000L;
+        long coWasteManagement = 47_750_000L;
+        long coForests = 250_000L;
+        long coOtherUnits = 8_000_000L;
 
         // === BASIC INFO ===
         printInfo();
@@ -61,8 +66,6 @@ public class MinistryOfNationalDefense extends Ministry {
                     String.format("%,d EUR", transfers));
             System.out.println("Goods & Services: " +
                     String.format("%,d EUR", goodsAndServices));
-            System.out.println("Other Expenses: " +
-                    String.format("%,d EUR", otherExpenses));
             System.out.println("Credits under Allocation: " +
                     String.format("%,d EUR", creditsUnderAllocation));
             System.out.println("Fixed Assets: " +
@@ -88,24 +91,34 @@ public class MinistryOfNationalDefense extends Ministry {
 
         if (investmentAnswer.equalsIgnoreCase("yes")) {
             System.out.println("\n===== Investment Budget — National Part =====");
-            System.out.println("Army General Staff: " +
-                    String.format("%,d EUR", natArmyGeneralStaff));
-            System.out.println("Naval General Staff: " +
-                    String.format("%,d EUR", natNavalGeneralStaff));
-            System.out.println("Air Force General Staff: " +
-                    String.format("%,d EUR", natAirForceGeneralStaff));
-            System.out.println("National Defense Units: " +
-                    String.format("%,d EUR", natDefenseUnits));
+            System.out.println("Spatial Planning: " +
+                    String.format("%,d EUR", natSpatialPlanning));
+            System.out.println("Energy & Mineral Resources: " +
+                    String.format("%,d EUR", natEnergyMinerals));
+            System.out.println("Natural Environment & Water: " +
+                    String.format("%,d EUR", natNaturalEnvironment));
+            System.out.println("Waste Management: " +
+                    String.format("%,d EUR", natWasteManagement));
+            System.out.println("Forests: " +
+                    String.format("%,d EUR", natForests));
+            System.out.println("Other Units: " +
+                    String.format("%,d EUR", natOtherUnits));
+            System.out.println("Recovery & Resilience Fund: " +
+                    String.format("%,d EUR", natRecoveryFund));
 
             System.out.println("\n===== Investment Budget — Co-Financed Part =====");
-            System.out.println("Army General Staff: " +
-                    String.format("%,d EUR", coArmyGeneralStaff));
-            System.out.println("Naval General Staff: " +
-                    String.format("%,d EUR", coNavalGeneralStaff));
-            System.out.println("Air Force General Staff: " +
-                    String.format("%,d EUR", coAirForceGeneralStaff));
-            System.out.println("National Defense Units: " +
-                    String.format("%,d EUR", coDefenseUnits));
+            System.out.println("Spatial Planning: " +
+                    String.format("%,d EUR", coSpatialPlanning));
+            System.out.println("Energy & Mineral Resources: " +
+                    String.format("%,d EUR", coEnergyMinerals));
+            System.out.println("Natural Environment & Water: " +
+                    String.format("%,d EUR", coNaturalEnvironment));
+            System.out.println("Waste Management: " +
+                    String.format("%,d EUR", coWasteManagement));
+            System.out.println("Forests: " +
+                    String.format("%,d EUR", coForests));
+            System.out.println("Other Units: " +
+                    String.format("%,d EUR", coOtherUnits));
         } else {
             System.out.println("\nOK. Investment Budget analysis skipped.");
         }

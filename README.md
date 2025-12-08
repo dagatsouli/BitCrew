@@ -1,2 +1,0 @@
-<<<<<<< HEAD
-# BitCrew. test

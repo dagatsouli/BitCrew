@@ -1,4 +1,7 @@
+package com.bitcrew;
 import java.util.Scanner;
+
+import com.bitcrew.Ministry;
 
 public class MinistryOfInfrastructureAndTransport extends Ministry {
 
