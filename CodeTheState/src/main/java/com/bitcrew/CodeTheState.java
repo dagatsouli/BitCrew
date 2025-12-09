@@ -119,7 +119,7 @@ public class CodeTheState {
 
                     System.out.println("Remaining balance indicator: " + String.format("%,d EUR", remainingBalance));
 
-                    System.out.println("\nSelect a Ministry to modify (1–6) or 0 to stop:");
+                    System.out.println("\nSelect a Ministry to modify (1 - 6) or 0 to stop:");
                     System.out.println("1. " + min1.getMinistry());
                     System.out.println("2. " + min2.getMinistry());
                     System.out.println("3. " + min3.getMinistry());
