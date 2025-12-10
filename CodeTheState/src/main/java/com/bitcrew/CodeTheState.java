@@ -119,7 +119,11 @@ public class CodeTheState {
 
                     System.out.println("Remaining balance indicator: " + String.format("%,d EUR", remainingBalance));
 
-                    System.out.println("\nSelect a Ministry to modify (1–6) or 0 to stop:");
+<<<<<<< HEAD
+                    System.out.println("\nSelect a Ministry to modify (1 – 6) or 0 to stop:");
+=======
+                    System.out.println("\nSelect a Ministry to modify (1 - 6) or 0 to stop:");
+>>>>>>> fdd6414b8aacf4364a9b41035cace314eefb3ab9
                     System.out.println("1. " + min1.getMinistry());
                     System.out.println("2. " + min2.getMinistry());
                     System.out.println("3. " + min3.getMinistry());
@@ -128,14 +132,14 @@ public class CodeTheState {
                     System.out.println("6. " + min6.getMinistry());
                     System.out.print("Your choice: ");
 
-                    int minChoice;
+                    int m;
                     if (!input.hasNextInt()) { input.nextLine(); continue; }
-                    minChoice = input.nextInt();
+                    m = input.nextInt();
                     input.nextLine();
 
-                    if (minChoice == 0) break;
+                    if (m == 0) break;
 
-                    Ministry selected = switch (minChoice) {
+                    Ministry selected = switch (m) {
                         case 1 -> min1;
                         case 2 -> min2;
                         case 3 -> min3;
@@ -230,7 +234,7 @@ public class CodeTheState {
                     selected.totalBudget = selected.regularBudget + selected.investmentBudget;
 
                     if (modType == 1) { 
-                        switch (minChoice) {
+                        switch (m) {
                             case 1 -> System.out.println("Revenue increase allows the launch of new infrastructure projects and the modernization of transport systems.");
                             case 2 -> System.out.println("Higher revenue strengthens national defense through upgraded equipment and improved military training.");
                             case 3 -> System.out.println("Increased revenue supports renewable energy development and environmental protection programs.");
@@ -239,7 +243,7 @@ public class CodeTheState {
                             case 6 -> System.out.println("Higher revenue allows school upgrades, university support, and increased funding for cultural programs.");
                         }
                     } else { 
-                        switch (minChoice) {
+                        switch (m) {
                             case 1 -> System.out.println("Revenue decrease leads to delays in infrastructure projects and reduced maintenance of transport networks.");
                             case 2 -> System.out.println("Lower revenue limits equipment upgrades and reduces military training programs.");
                             case 3 -> System.out.println("Decreased revenue slows down green energy projects and weakens environmental protection efforts.");
