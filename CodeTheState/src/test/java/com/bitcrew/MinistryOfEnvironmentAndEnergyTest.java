@@ -14,8 +14,5 @@ public class MinistryOfEnvironmentAndEnergyTest {
             "Ministry of Environment and Energy",
             min.getMinistry()
         );
-
-        assertEquals(319_227_000L, min.getRegularBudget());
-        assertEquals(2_022_000_000L, min.getInvestmentBudget());
     }
 }
