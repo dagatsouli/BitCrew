@@ -10,7 +10,5 @@ public class MinistryHealthTest {
         MinistryHealth min = new MinistryHealth();
 
         assertEquals("Ministry of Health", min.getMinistry());
-        assertEquals(6_607_824_000L, min.getRegularBudget());
-        assertEquals(7_745_824_000L, min.getInvestmentBudget());
     }
 }

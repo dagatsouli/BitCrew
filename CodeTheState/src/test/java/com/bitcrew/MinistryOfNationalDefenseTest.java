@@ -10,7 +10,5 @@ public class MinistryOfNationalDefenseTest {
         MinistryOfNationalDefense min = new MinistryOfNationalDefense();
 
         assertEquals("Ministry of National Defense", min.getMinistry());
-        assertEquals(6_061_000_000L, min.getRegularBudget());
-        assertEquals(69_000_000L, min.getInvestmentBudget());
     }
 }

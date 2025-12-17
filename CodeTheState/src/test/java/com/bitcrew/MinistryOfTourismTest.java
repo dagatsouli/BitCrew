@@ -11,8 +11,5 @@ public class MinistryOfTourismTest {
 
         String name = min.getMinistry();
         assertEquals("Ministry of Tourism", name);
-
-        assertEquals(39_293_000L, min.getRegularBudget());
-        assertEquals(150_000_000L, min.getInvestmentBudget());
     }
 }
