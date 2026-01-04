@@ -5,8 +5,8 @@ import java.util.List;
 
 public class CodeTheState {
     static double vatRate = 0.24;                 // 24% αρχικός ΦΠΑ
-    static long taxes = General.TOTAL_REVENUES;   // κρατικά έσοδα από φόρους
-    static long globalBalance = General.getBudgetBalance();
+    static long taxes = IncomeAndOutcome.TOTAL_REVENUES;   // κρατικά έσοδα από φόρους
+    static long globalBalance = IncomeAndOutcome.getBudgetBalance();
 
     static class BudgetChange {
         Ministry ministry;
@@ -28,7 +28,7 @@ public class CodeTheState {
         MinistryOfNationalDefense min2 = new MinistryOfNationalDefense();
         MinistryOfEnvironmentAndEnergy min3 = new MinistryOfEnvironmentAndEnergy();
         MinistryOfTourism min4 = new MinistryOfTourism();
-        MinistryHealth min5 = new MinistryHealth();
+        MinistryOfHealth min5 = new MinistryOfHealth();
         MinistryOfEducationReligionsAndSports min6 = new MinistryOfEducationReligionsAndSports();
 
         System.out.println("The Prime Minister's decision is today! The whole country is waiting for you!");
@@ -58,7 +58,7 @@ public class CodeTheState {
             if (choice == 0) break;
 
             if (choice == 1) {
-                General.showReport(input);
+                IncomeAndOutcome.showReport(input);
             }
 
             else if (choice == 2) {
@@ -186,7 +186,7 @@ public class CodeTheState {
                                 continue;
                             }
 
-                            if (amount > General.TOTAL_EXPENSES) {
+                            if (amount > IncomeAndOutcome.TOTAL_EXPENSES) {
                                 System.out.println(">>> Error: The amount entered is not realistic for the national economy.");
                                 continue;
                             }
@@ -345,9 +345,9 @@ public class CodeTheState {
         vatRate += vatPercent / 100.0;
         taxes = taxesAfter;
 
-        long revenuesBefore = General.TOTAL_REVENUES;
+        long revenuesBefore = IncomeAndOutcome.TOTAL_REVENUES;
         long revenuesAfter = revenuesBefore - taxesBefore + taxesAfter;
-        long newBalance = revenuesAfter - General.TOTAL_EXPENSES;
+        long newBalance = revenuesAfter - IncomeAndOutcome.TOTAL_EXPENSES;
 
         System.out.println("\n Revenues before VAT increase: " + String.format("%,d EUR", revenuesBefore));
         System.out.println(" Revenues after VAT increase: " + String.format("%,d EUR", revenuesAfter));
