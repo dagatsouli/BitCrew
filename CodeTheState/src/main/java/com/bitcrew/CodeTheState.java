@@ -2,11 +2,13 @@ package com.bitcrew;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 public class CodeTheState {
     static double vatRate = 0.24;                 // 24% αρχικός ΦΠΑ
-    static long taxes = IncomeAndOutcome.TOTAL_REVENUES;   // κρατικά έσοδα από φόρους
-    static long globalBalance = IncomeAndOutcome.getBudgetBalance();
+    static long taxes = General.TOTAL_REVENUES;   // κρατικά έσοδα από φόρους
+    static long globalBalance = General.getBudgetBalance();
 
     static class BudgetChange {
         Ministry ministry;
@@ -43,6 +45,7 @@ public class CodeTheState {
             System.out.println("1. View Revenues & Expenses");
             System.out.println("2. View Ministries");
             System.out.println("3. Adjust Ministries' Budgets");
+            System.out.println("4. Compare with EU Budgets");
             System.out.println("0. Exit");
             System.out.println("=====================================");
             System.out.print("Your choice: ");
@@ -58,7 +61,7 @@ public class CodeTheState {
             if (choice == 0) break;
 
             if (choice == 1) {
-                IncomeAndOutcome.showReport(input);
+                General.showReport(input);
             }
 
             else if (choice == 2) {
@@ -186,7 +189,7 @@ public class CodeTheState {
                                 continue;
                             }
 
-                            if (amount > IncomeAndOutcome.TOTAL_EXPENSES) {
+                            if (amount > General.TOTAL_EXPENSES) {
                                 System.out.println(">>> Error: The amount entered is not realistic for the national economy.");
                                 continue;
                             }
@@ -293,149 +296,190 @@ public class CodeTheState {
                 // ΣΕ ΜΑΚΡΟΟΙΚΟΝΟΜΙΚΟΥΣ ΟΡΟΥΣ ΕΛΛΕΙΜΜΑ Ή ΠΛΕΟΝΑΣΜΑ ΕΩΣ ΠΕΡΙΠΟΥ 1 ΔΙΣ ΘΕΩΡΕΙΤΑΙ ΙΣΟΣΚΕΛΙΣΜΕΝΟ ΣΤΗΝ ΕΛΛΑΔΑ
                 if (remainingBalance < -1_000_000_000L) {
 
-    System.out.println("\n Uh-oh! Your budget is in the red by more than 1 billion! (" +
-            String.format("%,d EUR", Math.abs(remainingBalance)) + ")");
+                    System.out.println("\n Uh-oh! Your budget is in the red by more than 1 billion! (" +
+                            String.format("%,d EUR", Math.abs(remainingBalance)) + ")");
 
-    String increaseVAT;
-    while (true) {
-        System.out.print("There is a trick to fix it: you can boost revenues by increasing VAT. Want to try it? (yes/no): ");
-        increaseVAT = input.nextLine().trim();
-        if (increaseVAT.equalsIgnoreCase("yes") || increaseVAT.equalsIgnoreCase("no")) break;
-        else System.out.println(">>> Please answer 'yes' or 'no'.");
-    }
+                    String increaseVAT;
+                    while (true) {
+                        System.out.print("There is a trick to fix it: you can boost revenues by increasing VAT. Want to try it? (yes/no): ");
+                        increaseVAT = input.nextLine().trim();
+                        if (increaseVAT.equalsIgnoreCase("yes") || increaseVAT.equalsIgnoreCase("no")) break;
+                        else System.out.println(">>> Please answer 'yes' or 'no'.");
+                    }
 
-    if (increaseVAT.equalsIgnoreCase("yes")) {
+                    if (increaseVAT.equalsIgnoreCase("yes")) {
 
-        double vatPercent;
+                        double vatPercent;
 
-        while (true) {
-            System.out.print("How much do you want to raise the VAT?");
-            String vatInput = input.nextLine().trim();
+                        while (true) {
+                            System.out.print("How much do you want to raise the VAT? ");
+                            String vatInput = input.nextLine().trim();
 
-            try {
-                vatPercent = Double.parseDouble(vatInput);
+                            try {
+                                vatPercent = Double.parseDouble(vatInput);
 
-                if (vatPercent <= 0) {
-                    System.out.println(">>> VAT increase must be positive.");
-                    continue;
+                                if (vatPercent < 0) {
+                                    System.out.println(">>> VAT increase must be positive.");
+                                    continue;
+                                } else if (vatPercent == 0.00) {
+                                    System.out.println("Okay, the budget will not be increased");
+                                    break;
+                                }
+
+                                double availableIncrease = 27.0 - (vatRate * 100);
+
+                                if (vatPercent > availableIncrease) {
+                                    System.out.println(
+                                            ">>> You can increase VAT only by up to "
+                                                    + String.format("%.2f", availableIncrease)
+                                                    + "% (maximum VAT is 27%)."
+                                    );
+                                    continue;
+                                }
+
+                                break;
+
+                            } catch (NumberFormatException e) {
+                                System.out.println(">>> Hmm, that doesn't look like a valid number. Try a decimal number.");
+                            }
+                        }
+
+                        long taxesBefore = taxes;
+                        //ΑΠΟ ΤΟ ΣΥΝΟΛΟ ΤΩΝ ΦΟΡΟΛΟΓΙΚΩΝ ΕΣΟΔΩΝ ΤΗΣ ΕΛΛΑΔΑΣ, ΤΟ 38,3% ΠΡΟΕΡΧΟΝΤΑΙ ΑΠΟ ΤΟΝ ΦΠΑ
+                        long taxesAfter = (long) (taxesBefore + taxesBefore * 0.383 * (vatPercent / 100.0));
+
+                        vatRate += vatPercent / 100.0;
+                        taxes = taxesAfter;
+
+                        long revenuesBefore = General.TOTAL_REVENUES;
+                        long revenuesAfter = revenuesBefore - taxesBefore + taxesAfter;
+                        long newBalance = revenuesAfter - General.TOTAL_EXPENSES;
+
+                        System.out.println("\n Revenues before VAT increase: " + String.format("%,d EUR", revenuesBefore));
+                        System.out.println(" Revenues after VAT increase: " + String.format("%,d EUR", revenuesAfter));
+                        System.out.println(" Difference: " + String.format("%,d EUR", revenuesAfter - revenuesBefore));
+                        System.out.println(" New budget balance: " + String.format("%,d EUR", newBalance));
+
+                        globalBalance = newBalance;
+
+                    } else {
+                        System.out.println("Alright, budget stays as is.");
+                    }
+                } else if (remainingBalance > 1_000_000_000L) {
+
+                    System.out.println("\n🎉 Great news, Prime Minister!");
+                    System.out.println("You have a surplus of "
+                            + String.format("%,d EUR", remainingBalance) + " (over 1 billion!)");
+
+                    String answer;
+                    while (true) {
+                        System.out.print(
+                                "Feeling generous? Want to reduce VAT and give citizens a break? (yes/no): "
+                        );
+                        answer = input.nextLine().trim();
+
+                        if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("no")) {
+                            break;
+                        } else {
+                            System.out.println(">>> Please answer only 'yes' or 'no'.");
+                        }
+                    }
+
+                    if (answer.equalsIgnoreCase("yes")) {
+
+                        while (true) {
+                            System.out.print(
+                                    "\nBy how many percentage points do you want to reduce VAT? "
+                                            + "(Current VAT: " + (vatRate * 100) + "%): "
+                            );
+
+                            if (!input.hasNextDouble()) {
+                                input.nextLine();
+                                System.out.println(">>> Numbers only, please!");
+                                continue;
+                            }
+
+                            double reduction = input.nextDouble();
+                            input.nextLine();
+
+                            // έλεγχος θεσμικού ορίου 15%
+                            if (vatRate - reduction / 100.0 < 0.15) {
+                                System.out.println(
+                                        "❌ You can't do that! VAT cannot drop below 15% "
+                                                + "due to EU regulations."
+                                );
+                                continue;
+                            }
+
+                            // ===== APPLY VAT REDUCTION =====
+                            long oldTaxes = taxes;
+
+                            vatRate -= reduction / 100.0;
+                            taxes = (long) (taxes - taxes * 0.383 * (reduction / 100.0));
+
+                            long newTaxes = taxes;
+                            long revenueDifference = newTaxes - oldTaxes;
+                            remainingBalance += revenueDifference;
+
+                            System.out.println("\n✨ VAT reduction successful!");
+                            System.out.println("Revenues before: " + String.format("%,d EUR", oldTaxes));
+                            System.out.println("Revenues after: " + String.format("%,d EUR", newTaxes));
+                            System.out.println("Revenue change: " + String.format("%,d EUR", revenueDifference));
+                            System.out.println("New balance: " + String.format("%,d EUR", remainingBalance));
+                            System.out.println("New VAT rate: " + (vatRate * 100) + "%");
+
+                            break;
+                        }
+
+                    } else {
+                        System.out.println("\nAlright! The surplus stays untouched. Stability first! 🏛️");
+                    }
+                } else {
+                    System.out.println("Your budget is considered balanced in macroeconomic terms!");
                 }
 
-                double availableIncrease = 27.0 - (vatRate * 100);
+                globalBalance = remainingBalance;
 
-                if (vatPercent > availableIncrease) {
-                    System.out.println(
-                            ">>> You can increase VAT only by up to "
-                                    + String.format("%.2f", availableIncrease)
-                                    + "% (maximum VAT is 27%)."
-                    );
-                    continue;
+            }
+
+            else if (choice == 4) {
+                System.out.println("\n========== Συγκριση με προυπολογισμους αλλων κρατων της ΕΕ ==========");
+
+                // Δεδομένα ΕΕ: πλεονάσματα/ελλείμματα ως ποσοστό του ΑΕΠ σύμφωνα με τη EuroStat
+                Map<String, Double> euBudgets = new HashMap<>();
+                euBudgets.put("Germany", -3.3);
+                euBudgets.put("France", -5.4);
+                euBudgets.put("Italy", -3.0);
+                euBudgets.put("Spain", -2.5);
+                euBudgets.put("Greece", 0.0);
+                euBudgets.put("Portugal", -3.0);
+                euBudgets.put("Cyprus", 2.7);
+                euBudgets.put("Romania", -8.6);
+
+                /*Θεωρούμε ότι ο προυπολογισμός της χώρας παραμένει σταθερός και δεν επηρεάζεται από
+                τις αλλαγές του ΦΠΑ (ισχύει ceteris paribus)*/
+                double gdpGreece = 242_000_000_000.0;
+
+                // globalBalance περιέχει τα αποτελέσματα των αλλαγών που έκανε ο χρήστης
+                double greeceBalance = (double) globalBalance;
+
+                // Ποσοστό πλεονάσματος/ελλείμματος Ελλάδας ως % του ΑΕΠ
+                double greecePercent = (greeceBalance / gdpGreece) * 100.0;
+                euBudgets.put("Greece", greecePercent);
+
+                // Ταξινόμηση κατά φθίνουσα σειρά
+                List<Map.Entry<String, Double>> sortedList = new ArrayList<>(euBudgets.entrySet());
+                sortedList.sort((a,b) -> Double.compare(b.getValue(), a.getValue()));
+
+                System.out.println("\nΠλεονάσματα/Ελλείμματα κρατών ΕΕ ως % του ΑΕΠ (2025):");
+                for (Map.Entry<String, Double> entry : sortedList) {
+                    String country = entry.getKey();
+                    double percent = entry.getValue();
+                    String sign = percent >= 0 ? "+" : "-";
+                    System.out.printf("%-10s: %s%.2f%%\n", country, sign, Math.abs(percent));
                 }
 
-                break;
-
-            } catch (NumberFormatException e) {
-                System.out.println(">>> Hmm, that doesn't look like a valid number. Try a decimal number.");
-            }
-        }
-
-        long taxesBefore = taxes;
-        //ΑΠΟ ΤΟ ΣΥΝΟΛΟ ΤΩΝ ΦΟΡΟΛΟΓΙΚΩΝ ΕΣΟΔΩΝ ΤΗΣ ΕΛΛΑΔΑΣ, ΤΟ 38,3% ΠΡΟΕΡΧΟΝΤΑΙ ΑΠΟ ΤΟΝ ΦΠΑ
-        long taxesAfter = (long) (taxesBefore + taxesBefore * 0.383 * (vatPercent / 100.0));
-
-        vatRate += vatPercent / 100.0;
-        taxes = taxesAfter;
-
-        long revenuesBefore = IncomeAndOutcome.TOTAL_REVENUES;
-        long revenuesAfter = revenuesBefore - taxesBefore + taxesAfter;
-        long newBalance = revenuesAfter - IncomeAndOutcome.TOTAL_EXPENSES;
-
-        System.out.println("\n Revenues before VAT increase: " + String.format("%,d EUR", revenuesBefore));
-        System.out.println(" Revenues after VAT increase: " + String.format("%,d EUR", revenuesAfter));
-        System.out.println(" Difference: " + String.format("%,d EUR", revenuesAfter - revenuesBefore));
-        System.out.println(" New budget balance: " + String.format("%,d EUR", newBalance));
-
-        globalBalance = newBalance;
-
-    } else {
-        System.out.println("Alright, budget stays as is.");
-    }
-} else if (remainingBalance > 1_000_000_000L) {
-
-
-    System.out.println("\n🎉 Great news, Prime Minister!");
-    System.out.println("You have a surplus of "
-            + String.format("%,d EUR", remainingBalance) + " (over 1 billion!)");
-
-    String answer;
-    while (true) {
-        System.out.print(
-            "Feeling generous? Want to reduce VAT and give citizens a break? (yes/no): "
-        );
-        answer = input.nextLine().trim();
-
-        if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("no")) {
-            break;
-        } else {
-            System.out.println(">>> Please answer only 'yes' or 'no'.");
-        }
-    }
-
-    if (answer.equalsIgnoreCase("yes")) {
-
-        while (true) {
-            System.out.print(
-                "\nBy how many percentage points do you want to reduce VAT? "
-                + "(Current VAT: " + (vatRate * 100) + "%): "
-            );
-
-            if (!input.hasNextDouble()) {
-                input.nextLine();
-                System.out.println(">>> Numbers only, please!");
-                continue;
-            }
-
-            double reduction = input.nextDouble();
-            input.nextLine();
-
-            // έλεγχος θεσμικού ορίου 15%
-            if (vatRate - reduction / 100.0 < 0.15) {
-                System.out.println(
-                    "❌ You can't do that! VAT cannot drop below 15% "
-                    + "due to EU regulations."
-                );
-                continue;
-            }
-
-            // ===== APPLY VAT REDUCTION =====
-            long oldTaxes = taxes;
-
-            vatRate -= reduction / 100.0;
-            taxes = (long) (taxes - taxes * 0.383 * (reduction / 100.0));
-
-            long newTaxes = taxes;
-            long revenueDifference = newTaxes - oldTaxes;
-            remainingBalance += revenueDifference;
-
-            System.out.println("\n✨ VAT reduction successful!");
-            System.out.println("Revenues before: " + String.format("%,d EUR", oldTaxes));
-            System.out.println("Revenues after:  " + String.format("%,d EUR", newTaxes));
-            System.out.println("Revenue change:  " + String.format("%,d EUR", revenueDifference));
-            System.out.println("New balance:     " + String.format("%,d EUR", remainingBalance));
-            System.out.println("New VAT rate:    " + (vatRate * 100) + "%");
-
-            break;
-        }
-
-    } else {
-        System.out.println("\nAlright! The surplus stays untouched. Stability first! 🏛️");
-    }
-} else {
-    System.out.println("Your budget is considered balanced in macroeconomic terms!");
-}
-        globalBalance = remainingBalance;
-                }
-
-                
+                System.out.println("=====================================");
             }
 
             String ans;
@@ -443,7 +487,7 @@ public class CodeTheState {
                 System.out.print("\nAnother action? (yes/no): ");
                 ans = input.nextLine().trim();
                 if (ans.equalsIgnoreCase("yes")) {
-                    break; 
+                    break;
                 } else if (ans.equalsIgnoreCase("no")) {
                     keepRunning = false;
                     break;
@@ -451,6 +495,7 @@ public class CodeTheState {
                     System.out.println(">>> Please answer only 'yes' or 'no'.");
                 }
             }
+        }
 
         input.close();
         System.out.println("System shutting down...");
