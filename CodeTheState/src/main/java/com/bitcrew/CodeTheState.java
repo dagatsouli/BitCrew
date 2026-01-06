@@ -51,12 +51,19 @@ public class CodeTheState {
             System.out.print("Your choice: ");
 
             int choice;
-            if (!input.hasNextInt()) {
-                input.nextLine();
-                continue;
+            while (true) {
+                System.out.print("Your choice (0-4): ");
+                try {
+                    choice = Integer.parseInt(input.nextLine().trim());
+                    if (choice >= 0 && choice <= 4) {
+                        break; // Έγκυρη επιλογή
+                    } else {
+                        System.out.println(">>> Invalid choice. Please enter a number between 0 and 4.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println(">>> Invalid input. Please enter a number.");
+                 }
             }
-            choice = input.nextInt();
-            input.nextLine();
 
             if (choice == 0) break;
 
