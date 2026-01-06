@@ -400,7 +400,7 @@ public class CodeTheState {
             // έλεγχος θεσμικού ορίου 15%
             if (vatRate - reduction / 100.0 < 0.15) {
                 System.out.println(
-                    "❌ You can't do that! VAT cannot drop below 15% "
+                    "You can't do that! VAT cannot drop below 15% "
                     + "due to EU regulations."
                 );
                 continue;
@@ -416,7 +416,7 @@ public class CodeTheState {
             long revenueDifference = newTaxes - oldTaxes;
             remainingBalance += revenueDifference;
 
-            System.out.println("\n✨ VAT reduction successful!");
+            System.out.println("\n VAT reduction successful!");
             System.out.println("Revenues before: " + String.format("%,d EUR", oldTaxes));
             System.out.println("Revenues after:  " + String.format("%,d EUR", newTaxes));
             System.out.println("Revenue change:  " + String.format("%,d EUR", revenueDifference));
