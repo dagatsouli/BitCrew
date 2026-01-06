@@ -1,7 +1,7 @@
 package com.bitcrew;
 import java.util.Scanner;
 
-public class IncomeAndOutcome {
+public class General {
 
     // συνολικά ποσά (για απλό έλεγχο πλεονάσματος)
     public static final long TOTAL_REVENUES  = 1_304_827_000_000L;
