@@ -3,6 +3,8 @@ package com.bitcrew;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Scanner;
+
 public class IncomeAndOutcomeTest {
 
     @Test
