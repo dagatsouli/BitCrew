@@ -19,8 +19,10 @@ public final class CodeTheState {
     private static double vatRate = 0.24;
     /** Total tax revenues of the state. */
     private static long taxes =  IncomeAndOutcome.TOTAL_REVENUES;
+    private static long currentRevenues = IncomeAndOutcome.TOTAL_REVENUES;
+    private static long currentExpenses = IncomeAndOutcome.TOTAL_EXPENSES;
     /** Total global balance of the state. */
-    private static long globalBalance = IncomeAndOutcome.getBudgetBalance();
+    private static long globalBalance = currentRevenues - currentExpenses;
 
 /**
  * Stores information about a change in a ministry's budget.
@@ -391,15 +393,17 @@ public final class CodeTheState {
                         vatRate += vatPercent / 100.0;
                         taxes = taxesAfter;
 
-                        long revenuesBefore = IncomeAndOutcome.TOTAL_REVENUES;
+                        long revenuesBefore = currentRevenues;
                         long revenuesAfter = revenuesBefore - taxesBefore + taxesAfter;
-                        long newBalance = revenuesAfter - IncomeAndOutcome.TOTAL_EXPENSES;
+                        long newBalance = revenuesAfter - currentExpenses;
+                        
 
                         System.out.println("\n Revenues before VAT increase: " + String.format("%,d EUR", revenuesBefore));
                         System.out.println(" Revenues after VAT increase: " + String.format("%,d EUR", revenuesAfter));
                         System.out.println(" Difference: " + String.format("%,d EUR", revenuesAfter - revenuesBefore));
                         System.out.println(" New budget balance: " + String.format("%,d EUR", newBalance));
-
+                        
+                        currentRevenues = revenuesAfter;
                         globalBalance = newBalance;
 
                     } else {
@@ -445,7 +449,7 @@ public final class CodeTheState {
                             // έλεγχος θεσμικού ορίου 15%
                             if (vatRate - reduction / 100.0 < 0.15) {
                                 System.out.println(
-                                        "❌ You can't do that! VAT cannot drop below 15% "
+                                        " You can't do that! VAT cannot drop below 15% "
                                                 + "due to EU regulations."
                                 );
                                 continue;
@@ -459,9 +463,11 @@ public final class CodeTheState {
 
                             long newTaxes = taxes;
                             long revenueDifference = newTaxes - oldTaxes;
-                            remainingBalance += revenueDifference;
+                            currentRevenues += revenueDifference;
+                            globalBalance = currentRevenues - currentExpenses;
+                            remainingBalance = globalBalance;
 
-                            System.out.println("\n✨ VAT reduction successful!");
+                            System.out.println("\n VAT reduction successful!");
                             System.out.println("Revenues before: " + String.format("%,d EUR", oldTaxes));
                             System.out.println("Revenues after: " + String.format("%,d EUR", newTaxes));
                             System.out.println("Revenue change: " + String.format("%,d EUR", revenueDifference));
@@ -478,7 +484,7 @@ public final class CodeTheState {
                     System.out.println("Your budget is considered balanced in macroeconomic terms!");
                 }
 
-                globalBalance = remainingBalance;
+                remainingBalance = globalBalance;
 
             }
 
