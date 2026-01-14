@@ -1,19 +1,40 @@
 package com.bitcrew;
-import java.util.Scanner;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.Scanner;
 
-public class CodeTheState {
-    static double vatRate = 0.24;                 // 24% αρχικός ΦΠΑ
-    static long taxes = General.TOTAL_REVENUES;   // κρατικά έσοδα από φόρους
-    static long globalBalance = General.getBudgetBalance();
+/**
+ * Main class of the application that simulates the management
+ * of the national budget and government ministries.
+ *
+ * <p>The user can view revenues, adjust ministry budgets,
+ * apply VAT changes and compare the budget with other EU countries.</p>
+ */
 
-    static class BudgetChange {
-        Ministry ministry;
-        long before;
-        long after;
+public final class CodeTheState {
+    /** Current VAT rate (24%). */
+    private static double vatRate = 0.24;
+    /** Total tax revenues of the state. */
+    private static long taxes =  IncomeAndOutcome.TOTAL_REVENUES;
+    /** Total global balance of the state. */
+    private static long globalBalance = IncomeAndOutcome.getBudgetBalance();
+
+/**
+ * Stores information about a change in a ministry's budget.
+ */
+
+    private static class BudgetChange {
+        /** The ministry that was modified. */
+        private final Ministry ministry;
+
+        /** Budget before the change. */
+        private final long before;
+
+        /** Budget after the change. */
+        private final long after;
 
         BudgetChange(Ministry ministry, long before, long after) {
             this.ministry = ministry;
@@ -21,6 +42,16 @@ public class CodeTheState {
             this.after = after;
         }
     }
+
+    private CodeTheState() {
+        // Prevent instantiation
+    }
+
+    /**
+     * Entry point of the application.
+     *
+     * @param args command-line arguments (not used)
+     */
 
     public static void main(String[] args) {
 
@@ -68,7 +99,7 @@ public class CodeTheState {
             if (choice == 0) break;
 
             if (choice == 1) {
-                General.showReport(input);
+                IncomeAndOutcome.showReport(input);
             }
 
             else if (choice == 2) {
@@ -196,7 +227,7 @@ public class CodeTheState {
                                 continue;
                             }
 
-                            if (amount > General.TOTAL_EXPENSES) {
+                            if (amount > IncomeAndOutcome.TOTAL_EXPENSES) {
                                 System.out.println(">>> Error: The amount entered is not realistic for the national economy.");
                                 continue;
                             }
@@ -300,7 +331,9 @@ public class CodeTheState {
                     System.out.println("======================================");
                 }
 
-                // ΣΕ ΜΑΚΡΟΟΙΚΟΝΟΜΙΚΟΥΣ ΟΡΟΥΣ ΕΛΛΕΙΜΜΑ Ή ΠΛΕΟΝΑΣΜΑ ΕΩΣ ΠΕΡΙΠΟΥ 1 ΔΙΣ ΘΕΩΡΕΙΤΑΙ ΙΣΟΣΚΕΛΙΣΜΕΝΟ ΣΤΗΝ ΕΛΛΑΔΑ
+                // In macroeconomic terms, a deficit or surplus up to 1 billion EUR
+                // is considered balanced in Greece.
+                
                 if (remainingBalance < -1_000_000_000L) {
 
                     System.out.println("\n Uh-oh! Your budget is in the red by more than 1 billion! (" +
@@ -358,9 +391,9 @@ public class CodeTheState {
                         vatRate += vatPercent / 100.0;
                         taxes = taxesAfter;
 
-                        long revenuesBefore = General.TOTAL_REVENUES;
+                        long revenuesBefore = IncomeAndOutcome.TOTAL_REVENUES;
                         long revenuesAfter = revenuesBefore - taxesBefore + taxesAfter;
-                        long newBalance = revenuesAfter - General.TOTAL_EXPENSES;
+                        long newBalance = revenuesAfter - IncomeAndOutcome.TOTAL_EXPENSES;
 
                         System.out.println("\n Revenues before VAT increase: " + String.format("%,d EUR", revenuesBefore));
                         System.out.println(" Revenues after VAT increase: " + String.format("%,d EUR", revenuesAfter));
@@ -397,7 +430,7 @@ public class CodeTheState {
                         while (true) {
                             System.out.print(
                                     "\nBy how many percentage points do you want to reduce VAT? "
-                                            + "(Current VAT: " + (vatRate * 100) + "%): "
+                                     + "(Current VAT: " + (vatRate * 100) + "%): "
                             );
 
                             if (!input.hasNextDouble()) {
